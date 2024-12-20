@@ -247,7 +247,7 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-        user_text = st.text_area("Scrivi qui il tuo testo:", height=200, key="unique_text_key")
+        user_text = st.text_input("Scrivi qui il tuo testo:")
         
         # Loop per il timer
         while time.time() - start_time < record_seconds:
