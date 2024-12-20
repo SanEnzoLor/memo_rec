@@ -251,7 +251,7 @@ def main():
 
         #user_text = st.text_input("Scrivi qui il tuo testo:")
         # Loop per il timer
-        if time.time() - start_time < record_seconds:
+        if time.time() - start_time > record_seconds:
             # Calcola il tempo rimanente
             remaining_time = record_seconds - int(time.time() - start_time)
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
