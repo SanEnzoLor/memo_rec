@@ -2,3 +2,4 @@ streamlit
 sounddevice
 pandas
 numpy
+PortAudio
