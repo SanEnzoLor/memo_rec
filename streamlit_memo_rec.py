@@ -208,10 +208,6 @@ def main():
     results_p = PCL5()
     st.write(f"PCL5: Re-experiencing = {results_p[0]}, Avoidance = {results_p[1]}, Negative alterations in cognition and mood = {results_p[2]}, Hyper-arousal = {results_p[3]}, Totale = {results_p[4]}")
 
-    # Placeholder per mostrare il timer e il campo di input
-    countdown_placeholder = st.empty()
-    text_placeholder = st.empty()
-
     record_seconds = 6
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
@@ -245,22 +241,28 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{selected_word}**")
+
+        # Placeholder per mostrare il timer e il campo di input
+        countdown_placeholder = st.empty()
+        text_placeholder = st.empty()
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-        countdown_seconds = 60
         user_text = ""
         
         # Loop per aggiornare il timer
-        while countdown_seconds > 0:
-            countdown_placeholder.markdown(f"**Tempo rimanente:** {countdown_seconds} secondi")
-            user_text = text_placeholder.text_area("Scrivi qui il tuo testo:", user_text, height=200)
+        while time.time() - start_time < record_seconds:
+            # Calcola il tempo rimanente
+            remaining_time = countdown - int(time.time() - start_time)
+            timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
+            
+            # Campo di input testo con un unique `key`
+            user_text = text_placeholder.text_area("Scrivi qui il tuo testo:", user_text, height=200, key="unique_text_key")
             time.sleep(1)  # Aspetta un secondo
-            countdown_seconds = 60 - int(time.time() - start_time)
-        
-        # Una volta scaduto il tempo
-        countdown_placeholder.empty()
-        text_placeholder.empty()
+
+        # Scaduto il tempo
+        timer_placeholder.empty()  # Rimuove il timer
+        text_placeholder.empty()  # Rimuove l'area di testo
         
 
         # Aggiungi i dati di questa registrazione alla sessione
