@@ -243,7 +243,7 @@ def main():
         st.write(f"**{selected_word}**")
 
         # Placeholder per mostrare il timer e il campo di input
-        countdown_placeholder = st.empty()
+        timer_placeholder = st.empty()
         text_placeholder = st.empty()
         
         # Mostra il timer e il campo di input
