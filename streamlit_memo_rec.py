@@ -205,60 +205,12 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
 
-
-
-    
     # Placeholder per il testo
     if "text_visible" not in st.session_state:
         st.session_state.text_visible = False  # Indica se mostrare il campo di testo
     if "user_text" not in st.session_state:
         st.session_state.user_text = ""  # Testo inserito dall'utente
 
-    # Bottone per iniziare
-    if st.button("Inizia"):
-        st.session_state.text_visible = True  # Mostra la casella di testo
-        start_time = time.time()  # Tempo iniziale
-        countdown = 60  # Durata in secondi
-
-        # Placeholder per il timer
-        timer_placeholder = st.empty()
-
-        while time.time() - start_time < countdown:
-            remaining_time = countdown - int(time.time() - start_time)
-            timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
-            time.sleep(1)
-
-        # Scaduto il tempo
-        timer_placeholder.empty()
-        st.session_state.text_visible = False  # Nasconde la casella di testo
-
-        # Salva il testo
-        if st.session_state.user_text.strip():
-            with open("testo_libero.txt", "a") as file:
-                file.write(st.session_state.user_text + "\n")
-            st.success("Tempo scaduto! Il testo è stato salvato con successo.")
-            st.markdown(f"Ecco il tuo testo:\n> {st.session_state.user_text}")
-        else:
-            st.warning("Tempo scaduto! Non hai scritto nulla.")
-
-    # Mostra il campo di testo se abilitato
-    if st.session_state.text_visible:
-        st.session_state.user_text = st.text_area(
-            "Scrivi qui il tuo testo:",
-            height=200,
-            key="unique_text_key"
-        )
-
-
-
-
-
-
-
-
-    """
-    #user_text = st.text_input("Scrivi qui il tuo testo:")
-    user_text = ""
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
@@ -288,7 +240,6 @@ def main():
         # Mostra il timer e il campo di input
         start_time = time.time()
 
-        user_text = st.text_input("Scrivi qui il tuo testo:")
         # Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
@@ -296,6 +247,10 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
+        # Scaduto il tempo
+        timer_placeholder.empty()
+        st.session_state.text_visible = False  # Nasconde la casella di testo
+        
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
@@ -318,7 +273,14 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-"""
+
+    # Mostra il campo di testo se abilitato
+    if st.session_state.text_visible:
+        st.session_state.user_text = st.text_area(
+            "Scrivi qui il tuo testo:",
+            height=200,
+            key="unique_text_key"
+        )
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
