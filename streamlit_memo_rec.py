@@ -1,6 +1,4 @@
 import streamlit as st
-#import sounddevice as sd
-#import wave
 import pandas as pd
 import os
 import time
@@ -248,16 +246,13 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-        user_text = ""
+        user_text = st.text_area("Scrivi qui il tuo testo:", height=200, key="unique_text_key")
         
         # Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
             remaining_time = record_seconds - int(time.time() - start_time)
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
-            
-            # Campo di input testo con un unique `key`
-            user_text = text_placeholder.text_area("Scrivi qui il tuo testo:", user_text, height=200, key="unique_text_key")
             time.sleep(1)  # Aspetta un secondo
 
         # Aggiungi i dati di questa registrazione alla sessione
