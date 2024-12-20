@@ -256,6 +256,7 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
+        st.write(user_text)
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
