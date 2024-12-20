@@ -211,7 +211,8 @@ def main():
     # Placeholder per mostrare il timer e il campo di input
     countdown_placeholder = st.empty()
     text_placeholder = st.empty()
-    
+
+    record_seconds = 6
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
