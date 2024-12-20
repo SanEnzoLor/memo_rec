@@ -241,10 +241,6 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{selected_word}**")
-
-        # Placeholder per mostrare il timer e il campo di input
-        timer_placeholder = st.empty()
-        text_placeholder = st.empty()
         
         # Mostra il timer e il campo di input
         start_time = time.time()
@@ -254,16 +250,11 @@ def main():
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
             remaining_time = record_seconds - int(time.time() - start_time)
-            timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
+            st.write(f"**Tempo rimanente: {remaining_time} secondi**")
             
             # Campo di input testo con un unique `key`
-            user_text = text_placeholder.text_area("Scrivi qui il tuo testo:", user_text, height=200, key="unique_text_key")
-            time.sleep(1)  # Aspetta un secondo
-
-        # Scaduto il tempo
-        timer_placeholder.empty()  # Rimuove il timer
-        text_placeholder.empty()  # Rimuove l'area di testo
-        
+            user_text = st.text_input("Scrivi qui il tuo testo:")
+            time.sleep(1)  # Aspetta un secondo       
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
