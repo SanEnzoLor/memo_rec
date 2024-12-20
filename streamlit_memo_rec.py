@@ -218,6 +218,7 @@ def main():
     st.write(f"Durata registrazione {record_seconds} secondi")
     output_file = get_next_filename(base_name="registrazione")
 
+    user_text = st.text_input("Scrivi qui il tuo testo:")
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
@@ -241,13 +242,11 @@ def main():
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{selected_word}**")
 
-        # Placeholder per il timer e l'input testo
+        # Placeholder per il timer
         timer_placeholder = st.empty()
-        text_placeholder = st.empty()
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-        user_text = st.text_input("Scrivi qui il tuo testo:")
         
         # Loop per il timer
         while time.time() - start_time < record_seconds:
