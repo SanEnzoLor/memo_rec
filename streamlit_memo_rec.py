@@ -1,6 +1,6 @@
 import streamlit as st
-import sounddevice as sd
-import wave
+#import sounddevice as sd
+#import wave
 import pandas as pd
 import os
 import time
@@ -18,30 +18,6 @@ def get_next_filename(base_name="registrazione", extension=".wav"):
         if not os.path.exists(file_name):
             return file_name
         i += 1
-
-# Registra audio 
-def record_audio(output_file, record_seconds=60, sample_rate=16000, channels=1, int_type=16):
-    
-    st.write(f"Registrazione di {record_seconds} secondi...")
-    # Crea un oggetto vuoto per il timer
-    timer_placeholder = st.empty()
-
-    # Inizializza il countdown
-    for remaining_time in range(record_seconds, 0, -1):
-        # Mostra il countdown
-        timer_placeholder.markdown(f"Tempo rimanente: **{remaining_time} secondi**")
-        time.sleep(1)  # Aspetta 1 secondo per simulare il countdown
-
-    audio_data = sd.rec(int(record_seconds * sample_rate), samplerate=sample_rate, channels=channels, dtype=f'int{int_type}') #in alternativa di minore qualità int8
-    sd.wait()
-    st.write("Fine della Registrazione")
-    
-    # Salva i dati audio in un file WAV
-    with wave.open(output_file, 'wb') as wf:
-        wf.setnchannels(channels)
-        wf.setsampwidth(int(int_type/8))  # 16-bit (2 byte) sample width
-        wf.setframerate(sample_rate)
-        wf.writeframes(audio_data)
 
 # Funzione per salvare le informazioni in un csv
 def data_save(data, nome_file="dati.csv"):
@@ -232,7 +208,10 @@ def main():
     results_p = PCL5()
     st.write(f"PCL5: Re-experiencing = {results_p[0]}, Avoidance = {results_p[1]}, Negative alterations in cognition and mood = {results_p[2]}, Hyper-arousal = {results_p[3]}, Totale = {results_p[4]}")
 
-    record_seconds = 6
+    # Placeholder per mostrare il timer e il campo di input
+    countdown_placeholder = st.empty()
+    text_placeholder = st.empty()
+    
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
@@ -265,7 +244,23 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{selected_word}**")
-        record_audio(output_file, record_seconds=record_seconds)
+        
+        # Mostra il timer e il campo di input
+        start_time = time.time()
+        countdown_seconds = 60
+        user_text = ""
+        
+        # Loop per aggiornare il timer
+        while countdown_seconds > 0:
+            countdown_placeholder.markdown(f"**Tempo rimanente:** {countdown_seconds} secondi")
+            user_text = text_placeholder.text_area("Scrivi qui il tuo testo:", user_text, height=200)
+            time.sleep(1)  # Aspetta un secondo
+            countdown_seconds = 60 - int(time.time() - start_time)
+        
+        # Una volta scaduto il tempo
+        countdown_placeholder.empty()
+        text_placeholder.empty()
+        
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -282,7 +277,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "File": output_file
+            "File": user_text
         })
 
         # Rimuovi la parola utilizzata dalla lista
