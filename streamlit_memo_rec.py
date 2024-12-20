@@ -266,7 +266,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "File": user_text
+            "File": st.session_state.user_text
         })
 
         # Rimuovi la parola utilizzata dalla lista
