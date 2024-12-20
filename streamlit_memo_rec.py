@@ -253,7 +253,7 @@ def main():
         # Loop per aggiornare il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
-            remaining_time = countdown - int(time.time() - start_time)
+            remaining_time = record_seconds - int(time.time() - start_time)
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             
             # Campo di input testo con un unique `key`
