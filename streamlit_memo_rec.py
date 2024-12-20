@@ -247,7 +247,8 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-        
+
+        #user_text = st.text_input("Scrivi qui il tuo testo:")
         # Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
@@ -255,7 +256,6 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-        st.markdown(f"> {user_text}")
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
