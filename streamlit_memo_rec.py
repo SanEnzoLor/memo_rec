@@ -245,6 +245,7 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
+    user_text = ""
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
@@ -310,7 +311,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "File": user_text
+            "Testo": user_text
         })
 
         #input_text = st.session_state.user_text
