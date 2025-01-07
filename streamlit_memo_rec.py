@@ -247,6 +247,7 @@ def main():
     st.write(f"Durata registrazione {record_seconds} secondi")
     # Mostra il campo di testo se abilitato
     text_visible = False
+    user_text = ""
     if text_visible == True:
         user_text = st.input_text("Scrivi qui il tuo testo:")
     
