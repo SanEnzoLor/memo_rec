@@ -258,8 +258,6 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
 
-        user_text = ""    # Testo utente
-
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
