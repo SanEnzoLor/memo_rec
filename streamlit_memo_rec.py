@@ -246,7 +246,6 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
     
-    user_text = ""
     text_visible = False
     if text_visible == True:
         user_text = st.text_input("Scrivi qui il tuo testo:")
