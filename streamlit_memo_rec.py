@@ -259,8 +259,8 @@ def main():
         # Placeholder per il testo
         if "text_visible" not in st.session_state:
             st.session_state.text_visible = True  # Indica se mostrare il campo di testo
-        #if "user_text" not in st.session_state:
-        #    st.session_state.user_text = ""  # Testo inserito dall'utente
+        if "user_text" not in st.session_state:
+            st.session_state.user_text = ""  # Testo inserito dall'utente
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -282,7 +282,7 @@ def main():
 
         # Mostra il campo di testo se abilitato
         if st.session_state.text_visible == True:
-            user_text = st.input_text("Scrivi qui il tuo testo:")
+            st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -309,10 +309,8 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": user_text
+            "Testo": st.session_state.user_text
         })
-
-        #input_text = st.session_state.user_text
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
