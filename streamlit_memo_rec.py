@@ -246,15 +246,16 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
     # Mostra il campo di testo se abilitato
-    text_visible = False
+    if "text_visible" not in st.session_state:
+        st.session_state.text_visible = False
     if "user_text" not in st.session_state:
         st.session_state.user_text = ""  # Testo inserito dall'utente
-    if text_visible == True:
+    if st.session_state.text_visible == True:
         st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        text_visible = True
+        st.session_state.text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
@@ -290,7 +291,7 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         # Scaduto il tempo
-        text_visible = False    # Nasconde la casella di testo
+        st.session_state.text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
         
         # Aggiungi i dati di questa registrazione alla sessione
