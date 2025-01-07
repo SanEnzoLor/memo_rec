@@ -205,23 +205,21 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
 
-    # Placeholder per il testo
-    if "text_visible" not in st.session_state:
-        st.session_state.text_visible = False  # Indica se mostrare il campo di testo
-    if "user_text" not in st.session_state:
-        st.session_state.user_text = ""  # Testo inserito dall'utente
-
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        st.session_state.text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-         # Gestione dello stato per i dati della sessione
+        # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
             st.session_state.session_data = []  # Dati temporanei della sessione
         if "used_words" not in st.session_state:
             st.session_state.used_words = []  # Parole già utilizzate
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+        # Placeholder per il testo
+        if "text_visible" not in st.session_state:
+            st.session_state.text_visible = False  # Indica se mostrare il campo di testo
+        if "user_text" not in st.session_state:
+            st.session_state.user_text = ""  # Testo inserito dall'utente
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -247,6 +245,7 @@ def main():
             remaining_time = record_seconds - int(time.time() - start_time)
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
+            st.session_state.text_visible = True
 
         # Scaduto il tempo
         timer_placeholder.empty()
