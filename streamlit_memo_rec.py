@@ -256,11 +256,8 @@ def main():
             st.session_state.used_words = []  # Parole già utilizzate
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-        # Mostra il campo di testo se abilitato
         if "user_text" not in st.session_state:
-            st.session_state.user_text = ""
-        if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+            st.session_state.user_text = ""    # User text
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -280,7 +277,10 @@ def main():
         # Mostra il timer e il campo di input
         start_time = time.time()
 
+        # Mostra il testo
         text_visible = True
+        if text_visible == True:
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
