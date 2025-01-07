@@ -289,7 +289,6 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         # Scaduto il tempo
-        text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
         
         # Aggiungi i dati di questa registrazione alla sessione
@@ -314,6 +313,7 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        text_visible = False    # Nasconde la casella di testo
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
