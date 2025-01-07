@@ -4,8 +4,28 @@ import os
 import time
 import random
 import numpy as np
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
 
-# Funzione per salvare le informazioni in un csv
+
+# Dropbox
+def upload_to_dropbox(file_path, access_token, dropbox_folder="/"):
+    dbx = dropbox.Dropbox(access_token)
+    with open(file_path, "rb") as f:
+        file_name = file_path.split("/")[-1]
+        dropbox_path = f"{dropbox_folder}/{file_name}"
+        dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
+        print(f"File caricato su Dropbox: {dropbox_path}")
+
+# Esempio di utilizzo
+file_path = "testo_libero.txt"
+access_token = "il_tuo_token_accesso_dropbox"
+upload_to_dropbox(file_path, access_token)
+
+# Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_save(data, nome_file="dati.csv"):
     """
     Funzione che acquisisce dati e li salva in un file CSV.
@@ -17,6 +37,12 @@ def data_save(data, nome_file="dati.csv"):
     file_exists = os.path.exists(nome_file)
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
+    
+    dbx = dropbox.Dropbox(access_token)
+    with open(file_path, "rb") as f:
+        file_name = file_path.split("/")[-1]
+        dropbox_path = f"{dropbox_folder}/{file_name}"
+        dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
     return "Dati salvati con successo."
 
 # Funzione per somministrare il BDI2
