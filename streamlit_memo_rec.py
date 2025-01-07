@@ -245,21 +245,19 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-    
-    # Gestione dello stato per i dati della sessione
-    if "session_data" not in st.session_state:
-        st.session_state.session_data = []  # Dati temporanei della sessione
-    if "used_words" not in st.session_state:
-        st.session_state.used_words = []  # Parole già utilizzate
-    if "remaining_words" not in st.session_state:
-        st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-    #if "user_text" not in st.session_state:
-    user_text = ""    # User text
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-
+        # Gestione dello stato per i dati della sessione
+        if "session_data" not in st.session_state:
+            st.session_state.session_data = []  # Dati temporanei della sessione
+        if "used_words" not in st.session_state:
+            st.session_state.used_words = []  # Parole già utilizzate
+        if "remaining_words" not in st.session_state:
+            st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+        #if "user_text" not in st.session_state:
+        user_text = ""    # User text
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -295,31 +293,29 @@ def main():
         text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
 
-
+        # Aggiungi i dati di questa registrazione alla sessione
+        st.session_state.session_data.append({
+            "Eta": eta,
+            "Gender": gender,
+            "Nazionalita": nazione,
+            "Educazione": educazione,
+            "Occupazione": occupazione,
+            "BDI2": results_d,
+            "RRS" : results_r,
+            "PCL-5-reexperiencing": results_p[0], 
+            "PCL-5-avoidance": results_p[1],
+            "PCL-5-altereted_cognition": results_p[2],
+            "PCL-5-hyperarousal": results_p[3],
+            "PCL-5-tot": results_p[4],
+            "Cue-Word": selected_word,
+            "Testo": user_text
+        })
         
         # Rimuovi la parola utilizzata dalla lista
         #user_text = ""
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-
-    # Aggiungi i dati di questa registrazione alla sessione
-    st.session_state.session_data.append({
-        "Eta": eta,
-        "Gender": gender,
-        "Nazionalita": nazione,
-        "Educazione": educazione,
-        "Occupazione": occupazione,
-        "BDI2": results_d,
-        "RRS" : results_r,
-        "PCL-5-reexperiencing": results_p[0], 
-        "PCL-5-avoidance": results_p[1],
-        "PCL-5-altereted_cognition": results_p[2],
-        "PCL-5-hyperarousal": results_p[3],
-        "PCL-5-tot": results_p[4],
-        "Cue-Word": selected_word,
-        "Testo": user_text
-    })
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
