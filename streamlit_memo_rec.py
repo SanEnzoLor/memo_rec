@@ -52,7 +52,7 @@ def data_save(data, nome_file="dati.csv"):
     st.write(df)
 
     # Esempio di utilizzo
-    file_path = nome file
+    file_path = nome_file
     sender_email = "tuo.email@gmail.com"
     sender_password = "la_tua_password"
     recipient_email = "destinatario@email.com"
