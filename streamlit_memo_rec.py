@@ -289,9 +289,11 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
+        print(user_text)
         # Scaduto il tempo
         text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
+        print(user_text)
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -310,6 +312,7 @@ def main():
             "Cue-Word": selected_word,
             "Testo": user_text
         })
+        print(user_text)
         
         # Rimuovi la parola utilizzata dalla lista
         #user_text = ""
