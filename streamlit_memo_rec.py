@@ -245,7 +245,6 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-    user_text = ""
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
@@ -293,6 +292,7 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
+        st.write(user_text)
         # Scaduto il tempo
         timer_placeholder.empty()
         
