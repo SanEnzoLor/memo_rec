@@ -10,20 +10,33 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
+def send_email(file_path, sender_email, sender_password, recipient_email):
+    subject = "File Salvato"
+    body = "Ecco il file salvato."
 
-# Dropbox
-def upload_to_dropbox(file_path, access_token, dropbox_folder="/"):
-    dbx = dropbox.Dropbox(access_token)
-    with open(file_path, "rb") as f:
-        file_name = file_path.split("/")[-1]
-        dropbox_path = f"{dropbox_folder}/{file_name}"
-        dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
-        print(f"File caricato su Dropbox: {dropbox_path}")
+    # Configura l'email
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
 
-# Esempio di utilizzo
-file_path = "testo_libero.txt"
-access_token = "il_tuo_token_accesso_dropbox"
-upload_to_dropbox(file_path, access_token)
+    # Aggiungi allegato
+    with open(file_path, "rb") as attachment:
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+        encoders.encode_base64(part)
+        part.add_header(
+            "Content-Disposition", f"attachment; filename={file_path.split('/')[-1]}"
+        )
+        msg.attach(part)
+
+    # Invia l'email
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, recipient_email, msg.as_string())
+        print("Email inviata con successo!")
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_save(data, nome_file="dati.csv"):
@@ -37,13 +50,15 @@ def data_save(data, nome_file="dati.csv"):
     file_exists = os.path.exists(nome_file)
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
+
+    # Esempio di utilizzo
+    file_path = nome file
+    sender_email = "tuo.email@gmail.com"
+    sender_password = "la_tua_password"
+    recipient_email = "destinatario@email.com"
+    send_email(file_path, sender_email, sender_password, recipient_email)
     
-    dbx = dropbox.Dropbox(access_token)
-    with open(file_path, "rb") as f:
-        file_name = file_path.split("/")[-1]
-        dropbox_path = f"{dropbox_folder}/{file_name}"
-        dbx.files_upload(f.read(), dropbox_path, mode=dropbox.files.WriteMode("overwrite"))
-    return "Dati salvati con successo."
+    return "Dati salvati e inviati con successo."
 
 # Funzione per somministrare il BDI2
 def BDI2():
