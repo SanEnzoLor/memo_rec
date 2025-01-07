@@ -248,7 +248,7 @@ def main():
     # Mostra il campo di testo se abilitato
     text_visible = False
     if "user_text" not in st.session_state:
-        st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")  # Testo inserito dall'utente
+        st.session_state.user_text = ""  # Testo inserito dall'utente
     if st.session_state.text_visible == True:
         st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
     
