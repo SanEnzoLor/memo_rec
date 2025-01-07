@@ -50,13 +50,13 @@ def data_save(data, nome_file="dati.csv"):
     file_exists = os.path.exists(nome_file)
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
-
-    # Esempio di utilizzo
+    """
     file_path = nome_file
     sender_email = st.text_input("Scrivi la tua mail:")
     sender_password = st.text_input("Scrivi la tua password:")
     recipient_email = "lorenzo.carozzi@nextage-on.com"
     send_email(file_path, sender_email, sender_password, recipient_email)
+    """
     
     return "Dati salvati e inviati con successo."
 
@@ -245,7 +245,7 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-    user_text = ""
+    #user_text = ""
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
