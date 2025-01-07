@@ -245,10 +245,6 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-    
-    text_visible = False
-    if text_visible == True:
-        user_text = st.text_input("Scrivi qui il tuo testo:")
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
@@ -261,7 +257,7 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         #if "user_text" not in st.session_state:
-        #    st.session_state.user_text = ""    # User text
+        user_text = ""    # User text
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -283,6 +279,8 @@ def main():
 
         # Mostra il testo
         text_visible = True
+        if text_visible == True:
+            user_text = st.text_input("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -292,7 +290,7 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         # Scaduto il tempo
-        text_visible = False    # Nasconde la casella di testo
+        #text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
         
         # Aggiungi i dati di questa registrazione alla sessione
@@ -313,6 +311,8 @@ def main():
             "Testo": user_text
         })
 
+        text_visible = False    # Nasconde la casella di testo
+        
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
