@@ -257,7 +257,7 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         #if "user_text" not in st.session_state:
-        #    st.session_state.user_text = ""    # User text
+        st.session_state.user_text = ""    # User text
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -278,9 +278,9 @@ def main():
         start_time = time.time()
 
         # Mostra il testo
-        text_visible = True
+        #text_visible = True
         #if text_visible == True:
-        user_text = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -307,13 +307,13 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": user_text
+            "Testo": st.session_state.user_text
         })
         
-        st.write(f"Il testo scritto è: {user_text}")
+        st.write(f"Il testo scritto è: {st.session_state.user_text}")
         
         # Rimuovi la parola utilizzata dalla lista
-        text_visible = False    # Nasconde la casella di testo
+        #text_visible = False    # Nasconde la casella di testo
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
