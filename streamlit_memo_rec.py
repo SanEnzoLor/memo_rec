@@ -247,9 +247,10 @@ def main():
     st.write(f"Durata registrazione {record_seconds} secondi")
     # Mostra il campo di testo se abilitato
     text_visible = False
-    user_text = ""
+    if "user_text" not in st.session_state:
+        st.session_state.user_text = ""  # Testo inserito dall'utente
     if st.session_state.text_visible == True:
-        user_text = st.input_text("Scrivi qui il tuo testo:")
+        st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
@@ -285,10 +286,6 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-
-        # Mostra il campo di testo se abilitato
-        #if st.session_state.text_visible == True:
-        #    st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -315,7 +312,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": user_text
+            "Testo": st.session_state.user_text
         })
 
         # Rimuovi la parola utilizzata dalla lista
@@ -326,7 +323,6 @@ def main():
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
-        #st.session_state.text_visible = False  # Nasconde la casella di testo
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
