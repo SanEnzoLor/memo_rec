@@ -53,8 +53,8 @@ def data_save(data, nome_file="dati.csv"):
 
     # Esempio di utilizzo
     file_path = nome_file
-    sender_email = st.input_text("Scrivi la tua mail:")
-    sender_password = st.input_text("Scrivi la tua password:")
+    sender_email = st.text_input("Scrivi la tua mail:")
+    sender_password = st.text_input("Scrivi la tua password:")
     recipient_email = "lorenzo.carozzi@nextage-on.com"
     send_email(file_path, sender_email, sender_password, recipient_email)
     
@@ -249,7 +249,7 @@ def main():
     text_visible = False
     user_text = ""
     if text_visible == True:
-        user_text = st.input_text("Scrivi qui il tuo testo:")
+        user_text = st.text_input("Scrivi qui il tuo testo:")
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
