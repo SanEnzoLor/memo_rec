@@ -294,7 +294,6 @@ def main():
 
         # Scaduto il tempo
         timer_placeholder.empty()
-        input_text = st.session_state.user_text
         
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -311,7 +310,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "File": input_text
+            "File": st.session_state.user_text
         })
 
         #input_text = st.session_state.user_text
