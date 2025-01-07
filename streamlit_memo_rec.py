@@ -258,7 +258,7 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         #if "user_text" not in st.session_state:
-        #user_text = ""    # User text
+        user_text = ""    # User text
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -293,31 +293,32 @@ def main():
         # Scaduto il tempo
         text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
-        print("\n\n\n", user_text)
-        
-        # Aggiungi i dati di questa registrazione alla sessione
-        st.session_state.session_data.append({
-            "Eta": eta,
-            "Gender": gender,
-            "Nazionalita": nazione,
-            "Educazione": educazione,
-            "Occupazione": occupazione,
-            "BDI2": results_d,
-            "RRS" : results_r,
-            "PCL-5-reexperiencing": results_p[0], 
-            "PCL-5-avoidance": results_p[1],
-            "PCL-5-altereted_cognition": results_p[2],
-            "PCL-5-hyperarousal": results_p[3],
-            "PCL-5-tot": results_p[4],
-            "Cue-Word": selected_word,
-            "Testo": user_text
-        })
+
+
         
         # Rimuovi la parola utilizzata dalla lista
+        #user_text = ""
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-        user_text = ""
+
+    # Aggiungi i dati di questa registrazione alla sessione
+    st.session_state.session_data.append({
+        "Eta": eta,
+        "Gender": gender,
+        "Nazionalita": nazione,
+        "Educazione": educazione,
+        "Occupazione": occupazione,
+        "BDI2": results_d,
+        "RRS" : results_r,
+        "PCL-5-reexperiencing": results_p[0], 
+        "PCL-5-avoidance": results_p[1],
+        "PCL-5-altereted_cognition": results_p[2],
+        "PCL-5-hyperarousal": results_p[3],
+        "PCL-5-tot": results_p[4],
+        "Cue-Word": selected_word,
+        "Testo": user_text
+    })
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
