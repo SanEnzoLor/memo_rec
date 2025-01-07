@@ -291,6 +291,7 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         # Scaduto il tempo
+        text = st.session_state.user_text
         text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
         
