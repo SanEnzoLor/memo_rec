@@ -295,6 +295,7 @@ def main():
 
         # Scaduto il tempo
         timer_placeholder.empty()
+        input_text = st.session_state.user_text
         st.session_state.text_visible = False  # Nasconde la casella di testo
         
         # Aggiungi i dati di questa registrazione alla sessione
@@ -312,7 +313,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "File": st.session_state.user_text
+            "File": input_text
         })
 
         # Rimuovi la parola utilizzata dalla lista
