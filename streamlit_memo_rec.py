@@ -247,6 +247,7 @@ def main():
     st.write(f"Durata registrazione {record_seconds} secondi")
     
     text_visible = False
+    user_text == None
     if text_visible == True:
         user_text = st.text_input("Scrivi qui il tuo testo:")
     
