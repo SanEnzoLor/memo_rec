@@ -239,7 +239,7 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-
+        
         # Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
@@ -247,6 +247,13 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
             st.session_state.text_visible = True
+            # Mostra il campo di testo se abilitato
+            if st.session_state.text_visible == True:
+                st.session_state.user_text = st.text_area(
+                    "Scrivi qui il tuo testo:",
+                    height=200,
+                    key="unique_text_key"
+                )
 
         # Scaduto il tempo
         timer_placeholder.empty()
@@ -274,14 +281,6 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-
-    # Mostra il campo di testo se abilitato
-    if st.session_state.text_visible:
-        st.session_state.user_text = st.text_area(
-            "Scrivi qui il tuo testo:",
-            height=200,
-            key="unique_text_key"
-        )
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
