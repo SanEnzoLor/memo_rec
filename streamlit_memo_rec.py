@@ -284,12 +284,8 @@ def main():
 
         # Mostra il campo di testo se abilitato
         if st.session_state.text_visible == True:
-            st.session_state.user_text = st.text_area(
-                "Scrivi qui il tuo testo:",
-                height=200,
-                key="unique_text_key"
-            )
-        
+            st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
+                
         # Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
