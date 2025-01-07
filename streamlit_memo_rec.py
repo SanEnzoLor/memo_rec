@@ -279,8 +279,8 @@ def main():
 
         # Mostra il testo
         text_visible = True
-        if text_visible == True:
-            user_text = st.text_input("Scrivi qui il tuo testo:")
+        #if text_visible == True:
+        user_text = st.text_input("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
