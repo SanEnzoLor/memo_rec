@@ -211,6 +211,7 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
+        st.session_state.text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
@@ -239,6 +240,14 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
+
+        # Mostra il campo di testo se abilitato
+        if st.session_state.text_visible == True:
+            st.session_state.user_text = st.text_area(
+                "Scrivi qui il tuo testo:",
+                height=200,
+                key="unique_text_key"
+            )
         
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -246,14 +255,6 @@ def main():
             remaining_time = record_seconds - int(time.time() - start_time)
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
-            st.session_state.text_visible = True
-            # Mostra il campo di testo se abilitato
-            if st.session_state.text_visible == True:
-                st.session_state.user_text = st.text_area(
-                    "Scrivi qui il tuo testo:",
-                    height=200,
-                    key="unique_text_key"
-                )
 
         # Scaduto il tempo
         timer_placeholder.empty()
