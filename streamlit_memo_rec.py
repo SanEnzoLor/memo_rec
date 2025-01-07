@@ -245,20 +245,21 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-    #user_text = ""
+    
+    # Gestione dello stato per i dati della sessione
+    if "session_data" not in st.session_state:
+        st.session_state.session_data = []  # Dati temporanei della sessione
+    if "used_words" not in st.session_state:
+        st.session_state.used_words = []  # Parole già utilizzate
+    if "remaining_words" not in st.session_state:
+        st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+    #if "user_text" not in st.session_state:
+    user_text = ""    # User text
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-        # Gestione dello stato per i dati della sessione
-        if "session_data" not in st.session_state:
-            st.session_state.session_data = []  # Dati temporanei della sessione
-        if "used_words" not in st.session_state:
-            st.session_state.used_words = []  # Parole già utilizzate
-        if "remaining_words" not in st.session_state:
-            st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-        #if "user_text" not in st.session_state:
-        user_text = ""    # User text
+
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
