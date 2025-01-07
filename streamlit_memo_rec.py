@@ -220,7 +220,7 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         if "user_text" not in st.session_state:
-            st.session_state.user_text = ""  # Testo inserito dall'utente
+            st.session_state.user_text = st.text_input("")  # Testo inserito dall'utente
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
