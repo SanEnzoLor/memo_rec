@@ -248,7 +248,6 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        st.session_state.text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
@@ -259,7 +258,7 @@ def main():
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         # Placeholder per il testo
         if "text_visible" not in st.session_state:
-            st.session_state.text_visible = False  # Indica se mostrare il campo di testo
+            st.session_state.text_visible = True  # Indica se mostrare il campo di testo
         #if "user_text" not in st.session_state:
         #    st.session_state.user_text = ""  # Testo inserito dall'utente
 
@@ -284,7 +283,6 @@ def main():
         # Mostra il campo di testo se abilitato
         if st.session_state.text_visible == True:
             user_text = st.input_text("Scrivi qui il tuo testo:")
-            st.write(user_text)
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -315,7 +313,6 @@ def main():
         })
 
         #input_text = st.session_state.user_text
-        st.session_state.text_visible = False  # Nasconde la casella di testo
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
@@ -324,6 +321,7 @@ def main():
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
+        st.session_state.text_visible = False  # Nasconde la casella di testo
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
