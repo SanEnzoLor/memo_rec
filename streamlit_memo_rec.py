@@ -260,8 +260,8 @@ def main():
         # Placeholder per il testo
         if "text_visible" not in st.session_state:
             st.session_state.text_visible = False  # Indica se mostrare il campo di testo
-        #if "user_text" not in st.session_state:
-        #    st.session_state.user_text = ""  # Testo inserito dall'utente
+        if "user_text" not in st.session_state:
+            st.session_state.user_text = ""  # Testo inserito dall'utente
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -283,7 +283,7 @@ def main():
 
         # Mostra il campo di testo se abilitato
         if st.session_state.text_visible == True:
-            input_text = st.input_text("Scrivi qui il tuo testo:")
+            st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -294,6 +294,7 @@ def main():
 
         # Scaduto il tempo
         timer_placeholder.empty()
+        input_text = st.session_state.user_text
         
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
