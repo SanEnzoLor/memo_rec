@@ -213,6 +213,7 @@ def main():
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
+        st.session_state.text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
          # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
