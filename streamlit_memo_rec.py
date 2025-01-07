@@ -290,9 +290,9 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         # Scaduto il tempo
-        #text_visible = False    # Nasconde la casella di testo
+        text_visible = False    # Nasconde la casella di testo
         timer_placeholder.empty()
-        
+        print(user_text)
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
@@ -310,8 +310,6 @@ def main():
             "Cue-Word": selected_word,
             "Testo": user_text
         })
-
-        text_visible = False    # Nasconde la casella di testo
         
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
