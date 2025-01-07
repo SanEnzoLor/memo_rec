@@ -246,11 +246,13 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
     # Mostra il campo di testo se abilitato
+    text_visible = False
     if st.session_state.text_visible == True:
-        st.session_state.user_text = st.input_text("Scrivi qui il tuo testo:")
+        user_text = st.input_text("Scrivi qui il tuo testo:")
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
+        text_visible = True
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         # Gestione dello stato per i dati della sessione
         if "session_data" not in st.session_state:
@@ -260,8 +262,8 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         # Placeholder per il testo
-        if "text_visible" not in st.session_state:
-            st.session_state.text_visible = True  # Indica se mostrare il campo di testo
+        #if "text_visible" not in st.session_state:
+        #    st.session_state.text_visible = True  # Indica se mostrare il campo di testo
         #if "user_text" not in st.session_state:
         #    st.session_state.user_text = ""  # Testo inserito dall'utente
 
@@ -319,10 +321,11 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        text_visible = False    # Nasconde la casella di testo
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
-        st.session_state.text_visible = False  # Nasconde la casella di testo
+        #st.session_state.text_visible = False  # Nasconde la casella di testo
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
