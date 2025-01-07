@@ -284,6 +284,7 @@ def main():
         # Mostra il campo di testo se abilitato
         if st.session_state.text_visible == True:
             user_text = st.input_text("Scrivi qui il tuo testo:")
+            st.write(user_text)
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -292,7 +293,6 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-        st.write(user_text)
         # Scaduto il tempo
         timer_placeholder.empty()
         
