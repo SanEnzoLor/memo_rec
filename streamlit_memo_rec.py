@@ -257,7 +257,26 @@ def main():
         if "remaining_words" not in st.session_state:
             st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
         #if "user_text" not in st.session_state:
-        st.session_state.user_text = ""    # User text
+        #st.session_state.user_text = ""    # User text
+
+
+        
+        # Variabili iniziali nella sessione
+        if "text_visible" not in st.session_state:
+            st.session_state.text_visible = False  # Controlla se il testo è visibile
+        if "user_text" not in st.session_state:
+            st.session_state.user_text = ""  # Dati dell'utente
+        
+        # Funzione per mostrare il testo per X secondi
+        def show_text_temporarily(duration):
+            st.session_state.text_visible = True
+            time.sleep(duration)
+            st.session_state.text_visible = False
+
+
+
+
+        
 
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
@@ -276,13 +295,34 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-
+"""
         # Mostra il testo
         text_visible = True
         if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
+
+
+
+
+
+        show_text_temporarily(record_seconds)
+
+        # Mostra il testo se lo stato è attivo
+        if st.session_state.text_visible:
+            st.write("**Scrivi qui il tuo testo:**")
+            st.session_state.user_text = st.text_area("")
+        else:
+            if st.session_state.user_text:
+                st.success("Il testo è stato salvato!")
+                st.write("**Risposta salvata:**")
+                st.write(st.session_state.user_text)
+
+
+
+
+        
                 
-        # Loop per il timer
+        """# Loop per il timer
         while time.time() - start_time < record_seconds:
             # Calcola il tempo rimanente
             remaining_time = record_seconds - int(time.time() - start_time)
@@ -294,7 +334,7 @@ def main():
         # Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
         if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
