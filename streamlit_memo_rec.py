@@ -291,7 +291,7 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-        st.button("Fine registrazione"):
+    st.button("Fine registrazione"):
         # Scaduto il tempo
         timer_placeholder.empty()
         # Rimuovi la parola utilizzata dalla lista
