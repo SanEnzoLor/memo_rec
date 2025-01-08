@@ -245,7 +245,7 @@ def main():
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
-
+"""
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
@@ -321,6 +321,63 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+
+"""
+
+
+
+
+
+
+    # Inizializza lo stato
+    if "show_text" not in st.session_state:
+        st.session_state.show_text = False  # Controlla se il testo è visibile
+    if "start_time" not in st.session_state:
+        st.session_state.start_time = None  # Tiene traccia dell'inizio del timer
+    if "user_input" not in st.session_state:
+        st.session_state.user_input = ""  # Dati dell'utente
+    
+    # Durata per cui il testo sarà visibile
+    duration = 10  # Tempo in secondi
+    
+    # Funzione per gestire il timer
+    def start_task():
+        st.session_state.show_text = True
+        st.session_state.start_time = time.time()  # Memorizza l'ora di inizio
+    
+    st.title("Mostra un Testo Temporaneo")
+    
+    # Bottone per iniziare
+    if st.button("Inizia il task"):
+        start_task()
+    
+    # Mostra il testo e il campo di input se il timer è attivo
+    if st.session_state.show_text:
+        elapsed_time = time.time() - st.session_state.start_time
+        if elapsed_time < duration:
+            st.write("**Questo è il testo da leggere e scrivere su cui riflettere.**")
+            st.session_state.user_input = st.text_area("Scrivi la tua risposta qui:")
+            st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
+        else:
+            # Tempo scaduto, nascondi il testo
+            st.session_state.show_text = False
+            st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
+            st.write("**Risposta salvata:**")
+            st.write(st.session_state.user_input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
