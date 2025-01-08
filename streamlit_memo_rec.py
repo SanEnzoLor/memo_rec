@@ -293,6 +293,8 @@ def main():
         timer_placeholder.empty()
         # Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
+        if text_visible == True:
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
