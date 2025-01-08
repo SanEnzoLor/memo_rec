@@ -356,8 +356,11 @@ def main():
         while time.time() - st.session_state.start_time < duration:
             elapsed_time = time.time() - st.session_state.start_time
             with placeholder.container():
-                st.write("**Questo è il testo da leggere e scrivere su cui riflettere.**")
-                st.session_state.user_input = st.text_area("Scrivi la tua risposta qui:", key="text_input")
+                st.write("**Questo è il testo da leggere e su cui riflettere.**")
+                st.session_state.user_input = st.text_area(
+                    "Scrivi la tua risposta qui:",
+                    key=f"text_input_{int(elapsed_time)}"  # Chiave unica basata sul tempo
+                )
                 st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
             time.sleep(1)  # Aspetta un secondo per aggiornare il timer
         
