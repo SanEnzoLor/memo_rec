@@ -278,9 +278,9 @@ def main():
         start_time = time.time()
 
         # Mostra il testo
-        #text_visible = True
-        #if text_visible == True:
-        st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+        text_visible = True
+        if text_visible == True:
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
                 
         # Loop per il timer
         while time.time() - start_time < record_seconds:
@@ -291,6 +291,8 @@ def main():
 
         # Scaduto il tempo
         timer_placeholder.empty()
+        # Rimuovi la parola utilizzata dalla lista
+        text_visible = False    # Nasconde la casella di testo
 
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -312,8 +314,6 @@ def main():
         
         st.write(f"Il testo scritto è: {st.session_state.user_text}")
         
-        # Rimuovi la parola utilizzata dalla lista
-        #text_visible = False    # Nasconde la casella di testo
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
