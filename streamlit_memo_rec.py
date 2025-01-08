@@ -300,40 +300,40 @@ def main():
         text_visible = False
         next_session = True
 
-    # Mostra il risultato al termine
-    if next_session:
-        # Scaduto il tempo
-        timer_placeholder = st.empty()
-        # Rimuovi la parola utilizzata dalla lista
-        text_visible = False    # Nasconde la casella di testo
-        if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
-
-        # Aggiungi i dati di questa registrazione alla sessione
-        st.session_state.session_data.append({
-            "Eta": eta,
-            "Gender": gender,
-            "Nazionalita": nazione,
-            "Educazione": educazione,
-            "Occupazione": occupazione,
-            "BDI2": results_d,
-            "RRS" : results_r,
-            "PCL-5-reexperiencing": results_p[0], 
-            "PCL-5-avoidance": results_p[1],
-            "PCL-5-altereted_cognition": results_p[2],
-            "PCL-5-hyperarousal": results_p[3],
-            "PCL-5-tot": results_p[4],
-            "Cue-Word": selected_word,
-            "Testo": st.session_state.user_text
-        })
-        
-        st.write(f"Il testo scritto è: {st.session_state.user_text}")
-        
-        st.session_state.remaining_words.remove(selected_word)
-        st.session_state.used_words.append(selected_word)
-        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-        
-        next_session = False
+        # Mostra il risultato al termine
+        if next_session:
+            # Scaduto il tempo
+            timer_placeholder = st.empty()
+            # Rimuovi la parola utilizzata dalla lista
+            text_visible = False    # Nasconde la casella di testo
+            if text_visible == True:
+                st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+    
+            # Aggiungi i dati di questa registrazione alla sessione
+            st.session_state.session_data.append({
+                "Eta": eta,
+                "Gender": gender,
+                "Nazionalita": nazione,
+                "Educazione": educazione,
+                "Occupazione": occupazione,
+                "BDI2": results_d,
+                "RRS" : results_r,
+                "PCL-5-reexperiencing": results_p[0], 
+                "PCL-5-avoidance": results_p[1],
+                "PCL-5-altereted_cognition": results_p[2],
+                "PCL-5-hyperarousal": results_p[3],
+                "PCL-5-tot": results_p[4],
+                "Cue-Word": selected_word,
+                "Testo": st.session_state.user_text
+            })
+            
+            st.write(f"Il testo scritto è: {st.session_state.user_text}")
+            
+            st.session_state.remaining_words.remove(selected_word)
+            st.session_state.used_words.append(selected_word)
+            st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+            
+            next_session = False
 
 
     # Bottone per salvare i dati
