@@ -328,7 +328,7 @@ def main():
 
 
 
-    # Inizializza lo stato
+    # Inizializza lo stato della sessione
     if "show_text" not in st.session_state:
         st.session_state.show_text = False
     if "start_time" not in st.session_state:
@@ -343,6 +343,7 @@ def main():
     def start_task():
         st.session_state.show_text = True
         st.session_state.start_time = time.time()
+        st.session_state.user_input = ""  # Resetta il testo inserito dall'utente
     
     st.title("Mostra un Testo Temporaneo con Timer")
     
@@ -357,10 +358,13 @@ def main():
             elapsed_time = time.time() - st.session_state.start_time
             with placeholder.container():
                 st.write("**Questo è il testo da leggere e su cui riflettere.**")
-                st.session_state.user_input = st.text_area(
+                # Mantieni il testo scritto dall'utente durante le iterazioni
+                user_input = st.text_area(
                     "Scrivi la tua risposta qui:",
-                    key=f"text_input_{int(elapsed_time)}"  # Chiave unica basata sul tempo
+                    value=st.session_state.user_input,  # Mostra il contenuto salvato
+                    key="text_input"
                 )
+                st.session_state.user_input = user_input  # Aggiorna il contenuto salvato
                 st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
             time.sleep(1)  # Aspetta un secondo per aggiornare il timer
         
