@@ -219,6 +219,7 @@ def PCL5():
 
     return items_reexperiencing, items_avoidance, items_altereted_cognition, items_hyperarousal, tot
 
+
 # Interfaccia Streamlit
 def main():
     st.title("**Indici Demografici**")
@@ -278,11 +279,8 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-
-        # Mostra il testo
-        text_visible = True
-        if text_visible == True:
-            text = st.text_input("Scrivi qui il tuo testo:")
+        
+        text = st.text_input("Scrivi qui il tuo testo:")
 
 
         # Loop per il timer
@@ -293,11 +291,11 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         st.session_state.user_text = text
-        text_visible = False    # Nasconde la casella di testo
+        #text_visible = False    # Nasconde la casella di testo
         
-        """# Scaduto il tempo
+        # Scaduto il tempo
         timer_placeholder = st.empty()
-        # Rimuovi la parola utilizzata dalla lista
+        """# Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
             st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
