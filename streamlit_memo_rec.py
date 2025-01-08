@@ -308,8 +308,7 @@ def main():
 
         # Mostra il testo se lo stato è attivo
         if st.session_state.text_visible:
-            st.write("**Scrivi qui il tuo testo:**")
-            st.session_state.user_text = st.text_area("")
+            st.session_state.user_text = st.text_input("**Scrivi qui il tuo testo:**")
         else:
             if st.session_state.user_text:
                 st.success("Il testo è stato salvato!")
