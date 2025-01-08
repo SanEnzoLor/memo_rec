@@ -262,7 +262,7 @@ def main():
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-        st.write(len(st.session_state.remaining_words))
+        st.write(len(text))
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
@@ -316,10 +316,10 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": text[11-len(st.session_state.remaining_words)]
+            "Testo": text
         })
             
-        st.write(f"Il testo scritto è: {text[11-len(st.session_state.remaining_words)]}")
+        st.write(f"Il testo scritto è: {text}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
