@@ -246,7 +246,7 @@ def main():
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     st.write(f"Durata registrazione {record_seconds} secondi")
     
-    """# Bottone per avviare la registrazione
+    # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         # Gestione dello stato per i dati della sessione
@@ -320,75 +320,9 @@ def main():
         
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
-        st.success(f"Registrazione completata. Dati salvati temporaneamente.")"""
+        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
 
-
-
-
-
-
-    # Inizializza lo stato della sessione
-    if "show_text" not in st.session_state:
-        st.session_state.show_text = False
-    if "start_time" not in st.session_state:
-        st.session_state.start_time = None
-    if "user_input" not in st.session_state:
-        st.session_state.user_input = ""
-    
-    # Durata del timer
-    duration = 10  # Tempo in secondi
-    
-    # Funzione per iniziare il task
-    def start_task():
-        st.session_state.show_text = True
-        st.session_state.start_time = time.time()
-        st.session_state.user_input = ""  # Resetta il testo inserito dall'utente
-    
-    st.title("Mostra un Testo Temporaneo con Timer")
-    
-    # Bottone per iniziare
-    if st.button("Inizia il task"):
-        start_task()
-    
-    # Mostra il testo e il timer dinamico
-    if st.session_state.show_text:
-        # Mostra il testo fisso
-        st.write("**Questo è il testo da leggere e su cui riflettere.**")
-        
-        # Campo di testo per l'input
-        st.session_state.user_input = st.text_area(
-            "Scrivi la tua risposta qui:",
-            value=st.session_state.user_input,  # Mostra il contenuto salvato
-            key="unique_text_key"
-        )
-        
-        # Timer dinamico
-        elapsed_time = time.time() - st.session_state.start_time
-        remaining_time = max(0, int(duration - elapsed_time))
-        st.info(f"Tempo rimanente: {remaining_time} secondi")
-    
-        # Controllo per il tempo scaduto
-        if remaining_time == 0:
-            st.session_state.show_text = False
-            st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
-            st.write("**Risposta salvata:**")
-            st.write(st.session_state.user_input)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
         if st.session_state.session_data:
