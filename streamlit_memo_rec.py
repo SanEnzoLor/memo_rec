@@ -305,7 +305,7 @@ def main():
     if st.session_state.auto_submit:
         
         # Scaduto il tempo
-        timer_placeholder.empty()
+        timer_placeholder = st.empty()
         # Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
         if text_visible == True:
