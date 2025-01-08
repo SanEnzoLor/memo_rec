@@ -304,7 +304,6 @@ def main():
 
 
 
-
         show_text_temporarily(record_seconds)
 
         # Mostra il testo se lo stato è attivo
