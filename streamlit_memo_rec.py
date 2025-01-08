@@ -320,9 +320,8 @@ def main():
         
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
-        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        st.success(f"Registrazione completata. Dati salvati temporaneamente.")"""
 
-"""
 
 
 
