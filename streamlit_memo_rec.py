@@ -295,11 +295,11 @@ def main():
         
         # Mostra il timer e il campo di input
         start_time = time.time()
-"""
+
         # Mostra il testo
-        text_visible = True
-        if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
+        #text_visible = True
+        #if text_visible == True:
+        #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
 
 
 
