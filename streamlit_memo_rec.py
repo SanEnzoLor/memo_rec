@@ -261,8 +261,6 @@ def main():
     if st.button("Inizia registrazione"):
         st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
 
-
-
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
@@ -299,7 +297,7 @@ def main():
         timer_placeholder = st.empty()
         # Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
-        if text_visible == True:
+        if text_visible == False:
             st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
     
         # Aggiungi i dati di questa registrazione alla sessione
