@@ -262,7 +262,7 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        st.warning("Attere il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
+        st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         st.write(len(st.session_state.array_text))
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
