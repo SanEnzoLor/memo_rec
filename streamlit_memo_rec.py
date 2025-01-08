@@ -319,7 +319,7 @@ def main():
             "Testo": text[10-len(st.session_state.remaining_words)]
         })
             
-        st.write(f"Il testo scritto è: {st.session_state.user_text}")
+        st.write(f"Il testo scritto è: {text[10-len(st.session_state.remaining_words)]}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
