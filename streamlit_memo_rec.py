@@ -353,27 +353,27 @@ def main():
     
     # Mostra il testo e il timer dinamico
     if st.session_state.show_text:
-        placeholder = st.empty()  # Placeholder per il testo e il timer
-        while time.time() - st.session_state.start_time < duration:
-            elapsed_time = time.time() - st.session_state.start_time
-            with placeholder.container():
-                st.write("**Questo è il testo da leggere e su cui riflettere.**")
-                # Mantieni il testo scritto dall'utente durante le iterazioni
-                user_input = st.text_area(
-                    "Scrivi la tua risposta qui:",
-                    value=st.session_state.user_input,  # Mostra il contenuto salvato
-                    key="text_input"
-                )
-                st.session_state.user_input = user_input  # Aggiorna il contenuto salvato
-                st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
-            time.sleep(1)  # Aspetta un secondo per aggiornare il timer
+        # Mostra il testo fisso
+        st.write("**Questo è il testo da leggere e su cui riflettere.**")
         
-        # Timer scaduto
-        placeholder.empty()  # Rimuovi il testo e il timer
-        st.session_state.show_text = False
-        st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
-        st.write("**Risposta salvata:**")
-        st.write(st.session_state.user_input)
+        # Campo di testo per l'input
+        st.session_state.user_input = st.text_area(
+            "Scrivi la tua risposta qui:",
+            value=st.session_state.user_input,  # Mostra il contenuto salvato
+            key="unique_text_key"
+        )
+        
+        # Timer dinamico
+        elapsed_time = time.time() - st.session_state.start_time
+        remaining_time = max(0, int(duration - elapsed_time))
+        st.info(f"Tempo rimanente: {remaining_time} secondi")
+    
+        # Controllo per il tempo scaduto
+        if remaining_time == 0:
+            st.session_state.show_text = False
+            st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
+            st.write("**Risposta salvata:**")
+            st.write(st.session_state.user_input)
 
 
 
