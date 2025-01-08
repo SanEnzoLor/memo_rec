@@ -321,8 +321,6 @@ def main():
             "Cue-Word": selected_word,
             "Testo": array
         })
-            
-        st.write(f"Il testo scritto è: {array}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
@@ -331,6 +329,7 @@ def main():
 
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
+        st.write(f"Il testo scritto è: {array}")
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
