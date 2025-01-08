@@ -295,7 +295,7 @@ def main():
         #text_visible = False    # Nasconde la casella di testo
         
         # Scaduto il tempo
-        timer_placeholder = st.empty()
+        #timer_placeholder = st.empty()
         """
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
