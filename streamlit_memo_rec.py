@@ -282,7 +282,7 @@ def main():
         # Mostra il testo
         text_visible = True
         if text_visible == True:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+            text = st.text_input("Scrivi qui il tuo testo:")
 
 
         # Loop per il timer
@@ -292,13 +292,15 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-        text_visible = False
-        # Scaduto il tempo
+        st.session_state.user_text = text
+        text_visible = False    # Nasconde la casella di testo
+        
+        """# Scaduto il tempo
         timer_placeholder = st.empty()
         # Rimuovi la parola utilizzata dalla lista
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
     
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
