@@ -330,39 +330,43 @@ def main():
 
     # Inizializza lo stato
     if "show_text" not in st.session_state:
-        st.session_state.show_text = False  # Controlla se il testo è visibile
+        st.session_state.show_text = False
     if "start_time" not in st.session_state:
-        st.session_state.start_time = None  # Tiene traccia dell'inizio del timer
+        st.session_state.start_time = None
     if "user_input" not in st.session_state:
-        st.session_state.user_input = ""  # Dati dell'utente
+        st.session_state.user_input = ""
     
-    # Durata per cui il testo sarà visibile
+    # Durata del timer
     duration = 10  # Tempo in secondi
     
-    # Funzione per gestire il timer
+    # Funzione per iniziare il task
     def start_task():
         st.session_state.show_text = True
-        st.session_state.start_time = time.time()  # Memorizza l'ora di inizio
+        st.session_state.start_time = time.time()
     
-    st.title("Mostra un Testo Temporaneo")
+    st.title("Mostra un Testo Temporaneo con Timer")
     
     # Bottone per iniziare
     if st.button("Inizia il task"):
         start_task()
     
-    # Mostra il testo e il campo di input se il timer è attivo
+    # Mostra il testo e il timer dinamico
     if st.session_state.show_text:
-        elapsed_time = time.time() - st.session_state.start_time
-        if elapsed_time < duration:
-            st.write("**Questo è il testo da leggere e scrivere su cui riflettere.**")
-            st.session_state.user_input = st.text_area("Scrivi la tua risposta qui:")
-            st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
-        else:
-            # Tempo scaduto, nascondi il testo
-            st.session_state.show_text = False
-            st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
-            st.write("**Risposta salvata:**")
-            st.write(st.session_state.user_input)
+        placeholder = st.empty()  # Placeholder per il testo e il timer
+        while time.time() - st.session_state.start_time < duration:
+            elapsed_time = time.time() - st.session_state.start_time
+            with placeholder.container():
+                st.write("**Questo è il testo da leggere e scrivere su cui riflettere.**")
+                st.session_state.user_input = st.text_area("Scrivi la tua risposta qui:", key="text_input")
+                st.info(f"Tempo rimanente: {int(duration - elapsed_time)} secondi")
+            time.sleep(1)  # Aspetta un secondo per aggiornare il timer
+        
+        # Timer scaduto
+        placeholder.empty()  # Rimuovi il testo e il timer
+        st.session_state.show_text = False
+        st.success("Il tempo è scaduto! La tua risposta è stata salvata.")
+        st.write("**Risposta salvata:**")
+        st.write(st.session_state.user_input)
 
 
 
