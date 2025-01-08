@@ -316,10 +316,10 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": text[10-len(st.session_state.remaining_words)]
+            "Testo": text[11-len(st.session_state.remaining_words)]
         })
             
-        st.write(f"Il testo scritto è: {text[10-len(st.session_state.remaining_words)]}")
+        st.write(f"Il testo scritto è: {text[11-len(st.session_state.remaining_words)]}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
