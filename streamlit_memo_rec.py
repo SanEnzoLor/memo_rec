@@ -256,7 +256,8 @@ def main():
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if "user_text" not in st.session_state:
         st.session_state.user_text = ""    # User text
-    text = []
+    if "array_text" not in st.session_state:
+        st.session_state.array_text = []
 
     
     # Bottone per avviare la registrazione
@@ -291,7 +292,7 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-        text.append(st.session_state.user_text)
+        st.session_state.array_text.append(st.session_state.user_text)
         #text_visible = False    # Nasconde la casella di testo
         
         # Scaduto il tempo
@@ -316,10 +317,10 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": text
+            "Testo": st.session_state.array_text
         })
             
-        st.write(f"Il testo scritto è: {text}")
+        st.write(f"Il testo scritto è: {st.session_state.array_text}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
