@@ -255,9 +255,8 @@ def main():
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if "user_text" not in st.session_state:
         st.session_state.user_text = ""    # User text
-    if "auto_submit" not in st.session_state:
-        st.session_state.auto_submit = False
 
+    next_session = False
 
     
     # Bottone per avviare la registrazione
@@ -299,11 +298,10 @@ def main():
 
         # Funzione per eseguire l'invio automatico
         text_visible = False
-        st.session_state.auto_submit = True
+        next_session = True
 
     # Mostra il risultato al termine
-    if st.session_state.auto_submit:
-        
+    if next_session:
         # Scaduto il tempo
         timer_placeholder = st.empty()
         # Rimuovi la parola utilizzata dalla lista
@@ -334,6 +332,8 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        
+        next_session = False
 
 
     # Bottone per salvare i dati
