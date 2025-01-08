@@ -295,39 +295,39 @@ def main():
             timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
             time.sleep(1)  # Aspetta un secondo
 
-    st.session_state.array_text.append(st.session_state.user_text)
-    array = st.session_state.array_text
+        st.session_state.array_text.append(st.session_state.user_text)
+        array = st.session_state.array_text
         #text_visible = False    # Nasconde la casella di testo
         
         # Scaduto il tempo
         #timer_placeholder = st.empty()
-    """
+        """
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
             st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
     
         # Aggiungi i dati di questa registrazione alla sessione
-    st.session_state.session_data.append({
-        "Eta": eta,
-        "Gender": gender,
-        "Nazionalita": nazione,
-        "Educazione": educazione,
-        "Occupazione": occupazione,
-        "BDI2": results_d,
-        "RRS" : results_r,
-        "PCL-5-reexperiencing": results_p[0], 
-        "PCL-5-avoidance": results_p[1],
-        "PCL-5-altereted_cognition": results_p[2],
-        "PCL-5-hyperarousal": results_p[3],
-        "PCL-5-tot": results_p[4],
-        "Cue-Word": selected_word,
-        "Testo": array
-    })
-
-    # Rimuovi la parola utilizzata dalla lista
-    st.session_state.remaining_words.remove(selected_word)
-    st.session_state.used_words.append(selected_word)
-    st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        st.session_state.session_data.append({
+            "Eta": eta,
+            "Gender": gender,
+            "Nazionalita": nazione,
+            "Educazione": educazione,
+            "Occupazione": occupazione,
+            "BDI2": results_d,
+            "RRS" : results_r,
+            "PCL-5-reexperiencing": results_p[0], 
+            "PCL-5-avoidance": results_p[1],
+            "PCL-5-altereted_cognition": results_p[2],
+            "PCL-5-hyperarousal": results_p[3],
+            "PCL-5-tot": results_p[4],
+            "Cue-Word": selected_word,
+            "Testo": array
+        })
+    
+        # Rimuovi la parola utilizzata dalla lista
+        st.session_state.remaining_words.remove(selected_word)
+        st.session_state.used_words.append(selected_word)
+        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
 
     # Bottone per salvare i dati
