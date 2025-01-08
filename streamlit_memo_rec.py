@@ -301,7 +301,7 @@ def main():
         
         # Scaduto il tempo
         #timer_placeholder = st.empty()
-        """
+    """
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
             st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
