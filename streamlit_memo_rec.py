@@ -258,6 +258,7 @@ def main():
         st.session_state.user_text = ""    # User text
     if "array_text" not in st.session_state:
         st.session_state.array_text = []
+    array = []
 
     
     # Bottone per avviare la registrazione
@@ -293,6 +294,7 @@ def main():
             time.sleep(1)  # Aspetta un secondo
 
         st.session_state.array_text.append(st.session_state.user_text)
+        array = st.session_state.array_text
         #text_visible = False    # Nasconde la casella di testo
         
         # Scaduto il tempo
@@ -317,10 +319,10 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Testo": st.session_state.array_text
+            "Testo": array
         })
             
-        st.write(f"Il testo scritto è: {st.session_state.array_text}")
+        st.write(f"Il testo scritto è: {array}")
 
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
