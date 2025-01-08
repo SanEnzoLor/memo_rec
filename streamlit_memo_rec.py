@@ -354,7 +354,7 @@ def main():
         # Mostra il timer e il campo di input
         start_time = time.time()
         
-        st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:", key = 2)
 
 
         # Loop per il timer
