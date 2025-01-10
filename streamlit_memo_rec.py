@@ -252,7 +252,7 @@ def main():
         st.session_state.session_data = []  # Dati temporanei della sessione
     if "remaining_words" not in st.session_state:
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-     if "selected_word" not in st.session_state:
+    if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
