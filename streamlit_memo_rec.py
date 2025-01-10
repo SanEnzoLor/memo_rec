@@ -289,7 +289,7 @@ def main():
         if st.button("Salva memoria"):
             
             end_time = time.time()
-            time = start_time - end_time
+            duration = start_time - end_time
             st.write(f"Durata registrazione {time} secondi")
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
@@ -307,7 +307,7 @@ def main():
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": selected_word,
                 "Text": st.session_state.array_text,
-                "Time": time
+                "Time": duration
             })
         
             # Rimuovi la parola utilizzata dalla lista
