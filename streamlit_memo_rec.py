@@ -259,15 +259,14 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-        # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
-        if len(st.session_state.remaining_words) == 0:
+        if len(st.session_state.remaining_words) != 0:
+            st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
+            # Timer e il campo di input
+            st.session_state.start_time = time.time()
+            show = True
+        else:
+            # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
-            return st.button("Salva Dati")
-
-        # Timer e il campo di input
-        st.session_state.start_time = time.time()
-        show = True
 
     # Seleziona una parola casuale dalla lista di parole rimanenti
     selected_word = random.choice(st.session_state.remaining_words)
