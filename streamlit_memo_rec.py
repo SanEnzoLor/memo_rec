@@ -257,7 +257,7 @@ def main():
     #if "user_text" not in st.session_state:
     #    st.session_state.user_text = ""    # User text
     if "array_text" not in st.session_state:
-        st.session_state.array_text = ["","","","","","","","","",""]
+        st.session_state.array_text = []
 
     #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
 
@@ -283,36 +283,36 @@ def main():
         # Timer e il campo di input
         start_time = time.time()
         
-        st.session_state.array_text[10-len(st.session_state.remaining_words)] = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
 
-        if st.button("Salva memoria"):
+        #if st.button("Salva memoria"):
             
-            end_time = time.time()
-            duration = start_time - end_time
-            st.write(f"Durata registrazione {time} secondi")
-            # Aggiungi i dati di questa registrazione alla sessione
-            st.session_state.session_data.append({
-                "Eta": eta,
-                "Gender": gender,
-                "Nazionalita": nazione,
-                "Educazione": educazione,
-                "Occupazione": occupazione,
-                "BDI2": results_d,
-                "RRS" : results_r,
-                "PCL-5-reexperiencing": results_p[0], 
-                "PCL-5-avoidance": results_p[1],
-                "PCL-5-altereted_cognition": results_p[2],
-                "PCL-5-hyperarousal": results_p[3],
-                "PCL-5-tot": results_p[4],
-                "Cue-Word": selected_word,
-                "Text": st.session_state.array_text,
-                "Time": duration
-            })
+        end_time = time.time()
+        duration = start_time - end_time
+        st.write(f"Durata registrazione {time} secondi")
+        # Aggiungi i dati di questa registrazione alla sessione
+        st.session_state.session_data.append({
+            "Eta": eta,
+            "Gender": gender,
+            "Nazionalita": nazione,
+            "Educazione": educazione,
+            "Occupazione": occupazione,
+            "BDI2": results_d,
+            "RRS" : results_r,
+            "PCL-5-reexperiencing": results_p[0], 
+            "PCL-5-avoidance": results_p[1],
+            "PCL-5-altereted_cognition": results_p[2],
+            "PCL-5-hyperarousal": results_p[3],
+            "PCL-5-tot": results_p[4],
+            "Cue-Word": selected_word,
+            "Text": st.session_state.array_text,
+            "Time": duration
+        })
         
-            # Rimuovi la parola utilizzata dalla lista
-            st.session_state.remaining_words.remove(selected_word)
-            st.session_state.used_words.append(selected_word)
-            st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        # Rimuovi la parola utilizzata dalla lista
+        st.session_state.remaining_words.remove(selected_word)
+        st.session_state.used_words.append(selected_word)
+        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             
         # Loop per il timer
         #while time.time() - start_time < record_seconds:
