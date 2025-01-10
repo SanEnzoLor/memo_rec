@@ -267,6 +267,7 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
+        st.session_state.testo = ""
         st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         st.write(len(st.session_state.array_text))
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
@@ -277,8 +278,6 @@ def main():
         # Timer e il campo di input
         st.session_state.start_time = time.time()
         show = True
-
-    testo = ""
     
     if show == True:
         # Seleziona una parola casuale dalla lista di parole rimanenti
@@ -287,7 +286,7 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{st.session_state.selected_word}**")
-        testo = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
         st.session_state.array_text.append(st.session_state.testo)
@@ -309,7 +308,7 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": st.session_state.selected_word,
-            "Text": testo,
+            "Text": st.session_state.testo,
             "Time": duration
         })
     
