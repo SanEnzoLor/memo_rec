@@ -260,7 +260,8 @@ def main():
         st.session_state.array_text = []
 
     #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
-
+    testo = st.text_input("Scrivi qui il tuo testo:")
+    
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
@@ -284,7 +285,7 @@ def main():
         start_time = time.time()
         
         #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
-        testo = st.text_input("Scrivi qui il tuo testo:")
+        #testo = st.text_input("Scrivi qui il tuo testo:")
 
         """if st.button("Salva memoria"):
             duration = time.time() - start_time
