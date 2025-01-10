@@ -283,8 +283,8 @@ def main():
         # Timer e il campo di input
         start_time = time.time()
         
-        #st.session_state.array_text.append(
-        testo = st.text_input("Scrivi qui il tuo testo:"))
+        #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
+        testo = st.text_input("Scrivi qui il tuo testo:")
 
         """if st.button("Salva memoria"):
             duration = time.time() - start_time
