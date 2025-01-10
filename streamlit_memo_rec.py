@@ -304,7 +304,7 @@ def main():
                 "PCL-5-hyperarousal": results_p[3],
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": selected_word,
-                "Text": st.session_state.array_text
+                "Text": st.session_state.array_text,
                 "Time": time
             })
         
