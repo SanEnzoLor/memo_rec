@@ -288,7 +288,7 @@ def main():
         #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
     testo = st.text_input("Scrivi qui il tuo testo:")
 
-        """if st.button("Salva memoria"):
+    """if st.button("Salva memoria"):
             duration = time.time() - start_time
             st.write(st.session_state.array_text)
             st.write(f"Durata registrazione {duration} secondi")
