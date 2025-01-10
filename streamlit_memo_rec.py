@@ -55,9 +55,9 @@ def data_save(data, nome_file="dati.csv"):
     sender_email = st.text_input("Scrivi la tua mail:")
     sender_password = st.text_input("Scrivi la tua password:")
     recipient_email = "lorenzo.carozzi@nextage-on.com"
-    send_email(file_path, sender_email, sender_password, recipient_email)
-    
-    return "Dati salvati e inviati con successo."
+    if st.button('Invia mail'):
+        send_email(file_path, sender_email, sender_password, recipient_email)
+        return "Dati salvati e inviati con successo."
 
 # Funzione per somministrare il BDI2
 def BDI2():
