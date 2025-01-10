@@ -260,6 +260,10 @@ def main():
         st.session_state.array_text = []
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
+    if "testo" not in st.session_state:
+        st.session_state.testo = ""
+    if "selected_word" not in st.session_state:
+        st.session_state.selected_word = ""
 
     #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:") 
     #testo = st.text_input("Scrivi qui il tuo testo:")
@@ -290,10 +294,10 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{selected_word}**")
-        testo = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
-        st.session_state.array_text.append(testo)
+        st.session_state.array_text.append(st.session_state.testo)
         duration = time.time() - st.session_state.start_time
         st.write(st.session_state.array_text)
         st.write(f"Durata registrazione {duration} secondi")
@@ -312,12 +316,12 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": selected_word,
-            "Text": testo,
+            "Text": st.session_state.testo,
             "Time": duration
         })
     
         st.write(duration)
-        st.write(testo)
+        st.write(st.session_state.testo)
 
         """if st.button("Fine registrazione"):
             duration = time.time() - start_time
