@@ -252,6 +252,8 @@ def main():
         st.session_state.session_data = []  # Dati temporanei della sessione
     if "remaining_words" not in st.session_state:
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+     if "selected_word" not in st.session_state:
+        st.session_state.selected_word = ""
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
 
@@ -264,17 +266,16 @@ def main():
             # Timer e il campo di input
             st.session_state.start_time = time.time()
             show = True
+            # Seleziona una parola casuale dalla lista di parole rimanenti
+            st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
-
-    # Seleziona una parola casuale dalla lista di parole rimanenti
-    selected_word = random.choice(st.session_state.remaining_words)
     
     if show == True:
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
-        st.write(f"**{selected_word}**")
+        st.write(f"**{st.session_state.selected_word}**")
     testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
 
     if st.button("Salva memoria"):
@@ -294,7 +295,7 @@ def main():
             "PCL-5-altereted_cognition": results_p[2],
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
-            "Cue-Word": selected_word,
+            "Cue-Word": st.session_state.selected_word,
             "Text": testo,
             "Time": duration
         })
@@ -302,7 +303,7 @@ def main():
         st.write(testo)
             
         # Rimuovi la parola utilizzata dalla lista
-        st.session_state.remaining_words.remove(selected_word)
+        st.session_state.remaining_words.remove(st.session_state.selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
         show = False
