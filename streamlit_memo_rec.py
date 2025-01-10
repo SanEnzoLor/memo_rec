@@ -50,13 +50,12 @@ def data_save(data, nome_file="dati.csv"):
     file_exists = os.path.exists(nome_file)
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
-    """
+    
     file_path = nome_file
     sender_email = st.text_input("Scrivi la tua mail:")
     sender_password = st.text_input("Scrivi la tua password:")
     recipient_email = "lorenzo.carozzi@nextage-on.com"
     send_email(file_path, sender_email, sender_password, recipient_email)
-    """
     
     return "Dati salvati e inviati con successo."
 
