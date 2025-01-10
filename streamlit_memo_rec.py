@@ -259,7 +259,7 @@ def main():
     if "array_text" not in st.session_state:
         st.session_state.array_text = ["","","","","","","","","",""]
 
-    st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+    #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
 
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
