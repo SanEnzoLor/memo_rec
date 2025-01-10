@@ -264,7 +264,7 @@ def main():
     #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:") 
     #testo = st.text_input("Scrivi qui il tuo testo:")
 
-    #visible = False
+    show = False
     #start_time = 0
     
     # Bottone per avviare la registrazione
@@ -281,17 +281,19 @@ def main():
         
         # Timer e il campo di input
         st.session_state.start_time = time.time()
-        
+        show = True
         #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
     # Seleziona una parola casuale dalla lista di parole rimanenti
-    selected_word = random.choice(st.session_state.remaining_words)
-
-    # Mostra la parola spunto
-    st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
-    st.write(f"**{selected_word}**")
-    testo = st.text_input("Scrivi qui il tuo testo:")
+    if show == True:
+        selected_word = random.choice(st.session_state.remaining_words)
+    
+        # Mostra la parola spunto
+        st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
+        st.write(f"**{selected_word}**")
+        testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
+        st.session_state.array_text.append(testo)
         duration = time.time() - st.session_state.start_time
         st.write(st.session_state.array_text)
         st.write(f"Durata registrazione {duration} secondi")
@@ -347,6 +349,8 @@ def main():
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+
+        show = False
             
         # Loop per il timer
         #while time.time() - start_time < record_seconds:
