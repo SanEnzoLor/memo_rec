@@ -287,9 +287,9 @@ def main():
 
         #if st.button("Salva memoria"):
             
-        end_time = time.time()
-        duration = start_time - end_time
-        st.write(f"Durata registrazione {time} secondi")
+        duration = time.time() - start_time
+        st.write(st.session_state.array_text)
+        st.write(f"Durata registrazione {duration} secondi")
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
@@ -308,6 +308,8 @@ def main():
             "Text": st.session_state.array_text,
             "Time": duration
         })
+
+        st.write(duration)
         
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
