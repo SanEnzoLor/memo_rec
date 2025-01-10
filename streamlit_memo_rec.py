@@ -245,7 +245,7 @@ def main():
     st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole sonda differenti (selezionando **Inizia registrazione**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
-    st.write(f"Durata registrazione {record_seconds} secondi")
+    #st.write(f"Durata registrazione {record_seconds} secondi")
 
     # Gestione dello stato per i dati della sessione
     if "session_data" not in st.session_state:
@@ -287,8 +287,10 @@ def main():
         st.session_state.array_text[len(st.session_state.used_words)] = st.text_input("Scrivi qui il tuo testo:")
 
         if st.button("Salva memoria"):
+            
             end_time = time.time()
             time = start_time - end_time
+            st.write(f"Durata registrazione {time} secondi")
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
                 "Eta": eta,
