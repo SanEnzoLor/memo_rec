@@ -286,7 +286,7 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{st.session_state.selected_word}**")
-        st.session_state.testo = st.text_input("Scrivi qui il tuo testo:")
+    st.session_state.testo = st.text_input("Scrivi qui il tuo testo una volta selezionat **Inizia registrazione** e aver visto la **parola spunto**:")
 
     if st.button("Salva memoria"):
         st.session_state.array_text.append(st.session_state.testo)
