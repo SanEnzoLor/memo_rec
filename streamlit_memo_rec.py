@@ -278,7 +278,7 @@ def main():
         st.write(f"**{selected_word}**")
 
         # Placeholder per il timer
-        timer_placeholder = st.empty()
+        #timer_placeholder = st.empty()
         
         # Timer e il campo di input
         start_time = time.time()
@@ -286,7 +286,6 @@ def main():
         st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
 
         if st.button("Salva memoria"):
-            
             duration = time.time() - start_time
             st.write(st.session_state.array_text)
             st.write(f"Durata registrazione {duration} secondi")
@@ -310,6 +309,30 @@ def main():
             })
     
             st.write(duration)
+            
+        """duration = time.time() - start_time
+        st.write(st.session_state.array_text)
+        st.write(f"Durata registrazione {duration} secondi")
+        # Aggiungi i dati di questa registrazione alla sessione
+        st.session_state.session_data.append({
+            "Eta": eta,
+            "Gender": gender,
+            "Nazionalita": nazione,
+            "Educazione": educazione,
+            "Occupazione": occupazione,
+            "BDI2": results_d,
+            "RRS" : results_r,
+            "PCL-5-reexperiencing": results_p[0], 
+            "PCL-5-avoidance": results_p[1],
+            "PCL-5-altereted_cognition": results_p[2],
+            "PCL-5-hyperarousal": results_p[3],
+            "PCL-5-tot": results_p[4],
+            "Cue-Word": selected_word,
+            "Text": st.session_state.array_text,
+            "Time": duration
+        })
+    
+            st.write(duration)"""
         
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
