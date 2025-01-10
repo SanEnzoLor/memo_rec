@@ -254,12 +254,8 @@ def main():
         st.session_state.used_words = []  # Parole già utilizzate
     if "remaining_words" not in st.session_state:
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-    if "array_text" not in st.session_state:
-        st.session_state.array_text = []
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
-    if "testo" not in st.session_state:
-        st.session_state.testo = ""
     if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
 
@@ -268,7 +264,6 @@ def main():
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
-        st.write(len(st.session_state.array_text))
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
         if len(st.session_state.remaining_words) == 0:
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
@@ -285,12 +280,10 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{st.session_state.selected_word}**")
-    testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:")
+    testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
 
     if st.button("Salva memoria"):
-        st.session_state.array_text.append(st.session_state.testo)
         duration = time.time() - st.session_state.start_time
-        #st.write(st.session_state.array_text)
         st.write(f"Durata registrazione {duration} secondi")
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -319,11 +312,10 @@ def main():
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
         show = False
-        testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:")
+        testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
 
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
-        st.write(f"Il testo scritto è: {st.session_state.array_text}")
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
