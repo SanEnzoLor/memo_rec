@@ -284,7 +284,7 @@ def main():
         # Timer e il campo di input
         start_time = time.time()
         
-        st.session_state.array_text[len(st.session_state.used_words)] = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.array_text[len(st.session_state.used_words)] = st.text_area("Scrivi qui il tuo testo:")
 
         if st.button("Salva memoria"):
             
@@ -359,7 +359,7 @@ def main():
 
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
-        st.write(f"Il testo scritto è: {array}")
+        st.write(f"Il testo scritto è: {st.session_state.array_text}")
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
