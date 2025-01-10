@@ -312,7 +312,6 @@ def main():
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
         show = False
-        testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
 
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
