@@ -289,11 +289,11 @@ def main():
         #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
     # Seleziona una parola casuale dalla lista di parole rimanenti
     if show == True:
-        selected_word = random.choice(st.session_state.remaining_words)
+        st.session_state.selected_word = random.choice(st.session_state.remaining_words)
     
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
-        st.write(f"**{selected_word}**")
+        st.write(f"**{st.session_state.selected_word}**")
         st.session_state.testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
@@ -315,7 +315,7 @@ def main():
             "PCL-5-altereted_cognition": results_p[2],
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
-            "Cue-Word": selected_word,
+            "Cue-Word": st.session_state.selected_word,
             "Text": st.session_state.testo,
             "Time": duration
         })
@@ -350,8 +350,8 @@ def main():
             st.write(testo)"""
             
         # Rimuovi la parola utilizzata dalla lista
-        st.session_state.remaining_words.remove(selected_word)
-        st.session_state.used_words.append(selected_word)
+        st.session_state.remaining_words.remove(st.session_state.selected_word)
+        st.session_state.used_words.append(st.session_state.selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
         show = False
