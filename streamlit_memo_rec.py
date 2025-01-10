@@ -52,8 +52,8 @@ def data_save(data, nome_file="dati.csv"):
     st.write(df)
     
     file_path = nome_file
-    sender_email = "ecapello28@gmail.com"#st.text_input("Scrivi la tua mail:")
-    sender_password = "Distretto9e3/4"#st.text_input("Scrivi la tua password:")
+    sender_email = st.text_input("Scrivi la tua mail:")
+    sender_password = st.text_input("Scrivi la tua password:")
     recipient_email = "lorenzo.carozzi@nextage-on.com"
     if st.button('Invia mail'):
         send_email(file_path, sender_email, sender_password, recipient_email)
