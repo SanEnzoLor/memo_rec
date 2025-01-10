@@ -43,7 +43,7 @@ def data_save(data, nome_file="dati.csv"):
     """
     Funzione che acquisisce dati e li salva in un file CSV.
     """
-    columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "File"]
+    columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
     df = pd.DataFrame(data, columns=columns)
 
     # Scrittura nel file CSV (append se esiste già)
@@ -237,7 +237,7 @@ def main():
     results_p = PCL5()
     st.write(f"PCL5: Re-experiencing = {results_p[0]}, Avoidance = {results_p[1]}, Negative alterations in cognition and mood = {results_p[2]}, Hyper-arousal = {results_p[3]}, Totale = {results_p[4]}")
 
-    record_seconds = 6
+    #record_seconds = 6
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
@@ -254,11 +254,10 @@ def main():
         st.session_state.used_words = []  # Parole già utilizzate
     if "remaining_words" not in st.session_state:
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
-    if "user_text" not in st.session_state:
-        st.session_state.user_text = ""    # User text
+    #if "user_text" not in st.session_state:
+    #    st.session_state.user_text = ""    # User text
     if "array_text" not in st.session_state:
-        st.session_state.array_text = []
-    array = []
+        st.session_state.array_text = ["","","","","","","","","",""]
 
     st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
 
@@ -282,21 +281,47 @@ def main():
         # Placeholder per il timer
         timer_placeholder = st.empty()
         
-        # Mostra il timer e il campo di input
+        # Timer e il campo di input
         start_time = time.time()
         
-        #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
+        st.session_state.array_text[len(st.session_state.used_words)] = st.text_input("Scrivi qui il tuo testo:")
 
-
+        if st.button("Salva memoria"):
+            end_time = time.time()
+            time = start_time - end_time
+            # Aggiungi i dati di questa registrazione alla sessione
+            st.session_state.session_data.append({
+                "Eta": eta,
+                "Gender": gender,
+                "Nazionalita": nazione,
+                "Educazione": educazione,
+                "Occupazione": occupazione,
+                "BDI2": results_d,
+                "RRS" : results_r,
+                "PCL-5-reexperiencing": results_p[0], 
+                "PCL-5-avoidance": results_p[1],
+                "PCL-5-altereted_cognition": results_p[2],
+                "PCL-5-hyperarousal": results_p[3],
+                "PCL-5-tot": results_p[4],
+                "Cue-Word": selected_word,
+                "Text": st.session_state.array_text
+                "Time": time
+            })
+        
+            # Rimuovi la parola utilizzata dalla lista
+            st.session_state.remaining_words.remove(selected_word)
+            st.session_state.used_words.append(selected_word)
+            st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+            
         # Loop per il timer
-        while time.time() - start_time < record_seconds:
-            # Calcola il tempo rimanente
-            remaining_time = record_seconds - int(time.time() - start_time)
-            timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
-            time.sleep(1)  # Aspetta un secondo
+        #while time.time() - start_time < record_seconds:
+        #    # Calcola il tempo rimanente
+        #    remaining_time = record_seconds - int(time.time() - start_time)
+        #    timer_placeholder.markdown(f"**Tempo rimanente: {remaining_time} secondi**")
+        #    time.sleep(1)  # Aspetta un secondo
 
-        st.session_state.array_text.append(st.session_state.user_text)
-        array = st.session_state.array_text
+        #st.session_state.array_text.append(st.session_state.user_text)
+        #array = st.session_state.array_text
         #text_visible = False    # Nasconde la casella di testo
         
         # Scaduto il tempo
@@ -304,7 +329,7 @@ def main():
         """
         text_visible = False    # Nasconde la casella di testo
         if text_visible == False:
-            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")"""
+            st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:")
     
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -327,7 +352,7 @@ def main():
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(selected_word)
         st.session_state.used_words.append(selected_word)
-        st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+        st.success(f"Registrazione completata. Dati salvati temporaneamente.")"""
 
 
     # Bottone per salvare i dati
