@@ -312,7 +312,7 @@ def main():
             "Time": duration
         })
     
-        st.write(testo)
+        st.write(st.session_state.testo)
             
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(st.session_state.selected_word)
