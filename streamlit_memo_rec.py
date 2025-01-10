@@ -277,7 +277,9 @@ def main():
         # Timer e il campo di input
         st.session_state.start_time = time.time()
         show = True
-        
+
+    testo = ""
+    
     if show == True:
         # Seleziona una parola casuale dalla lista di parole rimanenti
         st.session_state.selected_word = random.choice(st.session_state.remaining_words)
@@ -285,12 +287,12 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{st.session_state.selected_word}**")
-        st.session_state.testo = st.text_input("Scrivi qui il tuo testo:")
+        testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
         st.session_state.array_text.append(st.session_state.testo)
         duration = time.time() - st.session_state.start_time
-        st.write(st.session_state.array_text)
+        #st.write(st.session_state.array_text)
         st.write(f"Durata registrazione {duration} secondi")
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
@@ -307,12 +309,11 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": st.session_state.selected_word,
-            "Text": st.session_state.testo,
+            "Text": testo,
             "Time": duration
         })
     
-        st.write(duration)
-        st.write(st.session_state.testo)
+        st.write(testo)
             
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(st.session_state.selected_word)
