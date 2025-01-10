@@ -258,12 +258,14 @@ def main():
     #    st.session_state.user_text = ""    # User text
     if "array_text" not in st.session_state:
         st.session_state.array_text = []
+    if "start_time" not in st.session_state:
+        st.session_state.start_time = 0
 
     #st.session_state.user_text = st.text_input("Scrivi qui il tuo testo:") 
     #testo = st.text_input("Scrivi qui il tuo testo:")
 
     #visible = False
-    start_time = 0
+    #start_time = 0
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
@@ -274,24 +276,23 @@ def main():
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
             return
 
-        # Seleziona una parola casuale dalla lista di parole rimanenti
-        selected_word = random.choice(st.session_state.remaining_words)
-
-        # Mostra la parola spunto
-        st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
-        st.write(f"**{selected_word}**")
-
         # Placeholder per il timer
         #timer_placeholder = st.empty()
         
         # Timer e il campo di input
-        start_time = time.time()
+        st.session_state.start_time = time.time()
         
         #st.session_state.array_text.append(st.text_input("Scrivi qui il tuo testo:"))
+    # Seleziona una parola casuale dalla lista di parole rimanenti
+    selected_word = random.choice(st.session_state.remaining_words)
+
+    # Mostra la parola spunto
+    st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
+    st.write(f"**{selected_word}**")
     testo = st.text_input("Scrivi qui il tuo testo:")
 
     if st.button("Salva memoria"):
-        duration = time.time() - start_time
+        duration = time.time() - st.session_state.start_time
         st.write(st.session_state.array_text)
         st.write(f"Durata registrazione {duration} secondi")
         # Aggiungi i dati di questa registrazione alla sessione
