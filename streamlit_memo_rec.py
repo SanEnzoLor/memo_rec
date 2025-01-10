@@ -267,7 +267,6 @@ def main():
     
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
-        st.session_state.testo = ""
         st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
         st.write(len(st.session_state.array_text))
         # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
@@ -286,7 +285,7 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
         st.write(f"**{st.session_state.selected_word}**")
-    st.session_state.testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:")
+    testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:")
 
     if st.button("Salva memoria"):
         st.session_state.array_text.append(st.session_state.testo)
@@ -308,11 +307,11 @@ def main():
             "PCL-5-hyperarousal": results_p[3],
             "PCL-5-tot": results_p[4],
             "Cue-Word": st.session_state.selected_word,
-            "Text": st.session_state.testo,
+            "Text": testo,
             "Time": duration
         })
     
-        st.write(st.session_state.testo)
+        st.write(testo)
             
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(st.session_state.selected_word)
@@ -320,6 +319,7 @@ def main():
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
 
         show = False
+        testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:")
 
     # Bottone per salvare i dati
     if st.button("Salva Dati"):
@@ -327,7 +327,9 @@ def main():
         if st.session_state.session_data:
             messaggio = data_save(st.session_state.session_data)
             st.success(messaggio)
-            st.session_state.clear()  # Svuota lo stato della sessione
+            # Svuota lo stato della sessione
+            st.session_state.clear() 
+            st.cache_resource.clear()
         else:
             st.error("Non ci sono dati da salvare. Esegui almeno una registrazione.")
 
