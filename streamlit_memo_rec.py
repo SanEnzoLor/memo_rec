@@ -5,11 +5,13 @@ import time
 import random
 import numpy as np
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
+#from email.mime.text import MIMEText
+#from email.mime.multipart import MIMEMultipart
+#from email.mime.base import MIMEBase
+#from email import encoders
+import subprocess
 
+"""
 def send_email(file_path, sender_email, sender_password, recipient_email):
     subject = "File Salvato"
     body = "Ecco il file salvato."
@@ -37,6 +39,23 @@ def send_email(file_path, sender_email, sender_password, recipient_email):
         server.login(sender_email, sender_password)
         server.sendmail(sender_email, recipient_email, msg.as_string())
         print("Email inviata con successo!")
+"""
+
+# Funzione per caricare il file su GitHub
+def push_to_github(file_path, commit_message="Upload file from Streamlit"):
+    try:
+        # Aggiungere il file
+        subprocess.run(["git", "add", file_path], check=True)
+        
+        # Commit del file
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+        
+        # Push delle modifiche
+        subprocess.run(["git", "push"], check=True)
+        
+        st.success(f"File {file_path} caricato su GitHub con successo.")
+    except subprocess.CalledProcessError as e:
+        st.error(f"Errore durante il push su GitHub: {e}")
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_save(data, nome_file="dati.csv"):
@@ -50,14 +69,16 @@ def data_save(data, nome_file="dati.csv"):
     file_exists = os.path.exists(nome_file)
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
+
+    push_to_github(nome_file)
     
-    file_path = nome_file
-    sender_email = st.text_input("Scrivi la tua mail:")
-    sender_password = st.text_input("Scrivi la tua password:")
-    recipient_email = "lorenzo.carozzi@nextage-on.com"
-    if st.button('Invia mail'):
-        send_email(file_path, sender_email, sender_password, recipient_email)
-        return "Dati salvati e inviati con successo."
+    #file_path = nome_file
+    #sender_email = st.text_input("Scrivi la tua mail:")
+    #sender_password = st.text_input("Scrivi la tua password:")
+    #recipient_email = "lorenzo.carozzi@nextage-on.com"
+    #if st.button('Invia mail'):
+    #    send_email(file_path, sender_email, sender_password, recipient_email)
+    #    return "Dati salvati e inviati con successo."
 
 # Funzione per somministrare il BDI2
 def BDI2():
