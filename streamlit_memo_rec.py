@@ -265,22 +265,18 @@ def main():
         show = False
 
     # Bottone per salvare i dati
-    """if st.button("Salva Dati"):
+    if st.button("Salva Dati"):
         if st.session_state.session_data:
             st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio")
             messaggio = data_save(st.session_state.session_data)
-            st.success(messaggio)
+            #st.success(messaggio)
+            st.download_button(label = "Salva Dati", data = messaggio, file_name = "dati")
             # Svuota lo stato della sessione
             st.session_state.clear() 
             st.cache_resource.clear()
         else:
             st.error("Non ci sono dati da salvare. Esegui almeno una registrazione.")
-    """
-    if st.session_state.session_data:
-        st.warning("Grazie per aver partecipato al task. Ora per completare ")
-        data = data_save(st.session_state.session_data)
-        st.write(data)
-        st.download_button(label = "Salva Dati", data = data, file_name = "dati")
+            
             
 if __name__ == "__main__":
     main()
