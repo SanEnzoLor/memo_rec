@@ -271,9 +271,9 @@ def main():
             b_time = a_time
             while b_time - a_time < tot:
                 b_time = time.time()
-                #if b_time - a_time > 9:
-    st.session_state.clear() 
-    st.cache_resource.clear()
+                if b_time - a_time > 9:
+                    st.session_state.clear() 
+                    st.cache_resource.clear()
             
             
 if __name__ == "__main__":
