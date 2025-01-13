@@ -16,7 +16,7 @@ def data_save(data, nome_file="dati.csv"):
 
     # Scrittura nel file CSV (append se esiste già)
     file_exists = os.path.exists(nome_file)
-    st.write(os.path)
+    st.write(os.path.abspath())
     df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     st.write(df)
 
