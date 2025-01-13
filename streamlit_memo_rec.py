@@ -268,6 +268,7 @@ def main():
             st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio **invia una mail** a **lorenzocarozzi9826@gmail.com** avente in **allegato** il file appena scaricato '**dati.csv**'.")
             # Svuota lo stato della sessione
             a_time = time.time()
+            b_time = a_time
             while b_time - a_time < 10:
                 b_time = time.time()
             st.session_state.clear() 
