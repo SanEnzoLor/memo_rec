@@ -280,7 +280,7 @@ def main():
     if st.session_state.session_data:
         st.warning("Grazie per aver partecipato al task. Ora per completare ")
         data = data_save(st.session_state.session_data)
-        st.download_button(label = "Salva Dati", data = data, file_name = "dati"):
+        st.download_button(label = "Salva Dati", data = data, file_name = "dati")
             
 if __name__ == "__main__":
     main()
