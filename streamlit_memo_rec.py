@@ -265,11 +265,12 @@ def main():
     if st.session_state.session_data:
         file = data_csv(st.session_state.session_data)
         if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
-            st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio **invia una mail** a **lorenzocarozzi9826@gmail.com** avente in **allegato** il file appena scaricato '**dati.csv**'.")
-            
-    # Svuota lo stato della sessione
-    st.session_state.clear() 
-    st.cache_resource.clear()
+            # Svuota lo stato della sessione
+            a_time = time.time()
+            while time.time() - a_time < 10:
+                st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio **invia una mail** a **lorenzocarozzi9826@gmail.com** avente in **allegato** il file appena scaricato '**dati.csv**'.")
+            st.session_state.clear() 
+            st.cache_resource.clear()
             
             
 if __name__ == "__main__":
