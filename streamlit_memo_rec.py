@@ -16,7 +16,7 @@ def data_save(data, nome_file="dati.csv"):
 
     # Scrittura nel file CSV (append se esiste già)
     file_exists = os.path.exists(nome_file)
-    df = df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
+    df_csv = df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
     return df
 
 # Funzione per somministrare il BDI2
@@ -279,6 +279,7 @@ def main():
     if st.session_state.session_data:
         st.warning("Grazie per aver partecipato al task. Ora per completare ")
         data = data_save(st.session_state.session_data)
+        st.write(data)
         st.download_button(label = "Salva Dati", data = data, file_name = "dati")
             
 if __name__ == "__main__":
