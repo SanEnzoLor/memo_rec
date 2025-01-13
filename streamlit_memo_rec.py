@@ -7,16 +7,13 @@ import numpy as np
 import smtplib
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
-def data_save(data, nome_file="dati.csv"):
+def data_csv(data):
     """
     Funzione che acquisisce dati e li salva in un file CSV.
     """
     columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
     df = pd.DataFrame(data, columns=columns)
-
-    # Scrittura nel file CSV (append se esiste già)
-    file_exists = os.path.exists(nome_file)
-    df_csv = df.to_csv(nome_file, mode='a', header=not file_exists, index=False)
+    df_csv = df.to_csv(index=False)
     return df_csv
 
 # Funzione per somministrare il BDI2
@@ -268,9 +265,9 @@ def main():
     if st.button("Salva Dati"):
         if st.session_state.session_data:
             st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio")
-            messaggio = data_save(st.session_state.session_data)
-            st.success(messaggio)
-            st.download_button(label = "Salva Dati", data = messaggio, file_name = "dati")
+            file = data_csv(st.session_state.session_data)
+            st.success(file)
+            st.download_button(label = "Salva Dati", data = file, file_name = "dati")
             # Svuota lo stato della sessione
             st.session_state.clear() 
             st.cache_resource.clear()
