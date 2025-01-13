@@ -269,9 +269,10 @@ def main():
             # Svuota lo stato della sessione
             a_time = time.time()
             b_time = a_time
-            while b_time - a_time < tot:
+            tott = 10
+            while b_time - a_time < tott:
                 b_time = time.time()
-                if b_time - a_time > 9:
+                if b_time - a_time > tott-1:
                     st.session_state.clear() 
                     st.cache_resource.clear()
             
