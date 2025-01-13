@@ -262,17 +262,17 @@ def main():
         show = False
 
     # Bottone per salvare i dati
-    if st.button("Salva Dati"):
-        if st.session_state.session_data:
+    #if st.button("Salva Dati"):
+    if st.session_state.session_data:
+        file = data_csv(st.session_state.session_data)
+        st.success(file)
+        if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
             st.warning("Grazie per aver partecipato al task. Ora per completare il salvataggio")
-            file = data_csv(st.session_state.session_data)
-            st.success(file)
-            st.download_button(label = "Salva Dati", data = file, file_name = "dati")
             # Svuota lo stato della sessione
             st.session_state.clear() 
             st.cache_resource.clear()
-        else:
-            st.error("Non ci sono dati da salvare. Esegui almeno una registrazione.")
+    else:
+        st.error("Non ci sono dati da salvare. Esegui almeno una registrazione.")
             
             
 if __name__ == "__main__":
