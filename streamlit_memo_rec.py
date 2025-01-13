@@ -201,8 +201,8 @@ def main():
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
-    st.write("Il task consiste nel **ricordare e raccontare** in 60 secondi un **evento personale** richiamato dalla **parola sonda** che verrà mostrata, indicando quanti più **dettagli** possibili in relazione alla memoria. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
-    st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole sonda differenti (selezionando **Inizia registrazione**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
+    st.write("Il task consiste nel **ricordare e raccontare** un **evento personale** richiamato dalla **parola sonda** che verrà mostrata, indicando quanti più **dettagli** possibili in relazione alla memoria. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
+    st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole sonda differenti (selezionando prima **Salva memoria** e poi nuovamente **Inizia registrazione**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     #st.write(f"Durata registrazione {record_seconds} secondi")
@@ -222,7 +222,7 @@ def main():
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         if len(st.session_state.remaining_words) != 0:
-            st.warning("Attere qualche secondo dopo il salvataggio dei dati prima di selezionare nuovamente **Inizia registrazione**.")
+            st.warning("Per il salvataggio della memoria fornita premere **Salva memoria**, **NON premere** il tasto **INVIO**.")
             # Timer e il campo di input
             st.session_state.start_time = time.time()
             show = True
