@@ -222,7 +222,7 @@ def main():
     # Bottone per avviare la registrazione
     if st.button("Inizia registrazione"):
         if len(st.session_state.remaining_words) != 0:
-            st.warning("Per il salvataggio della memoria fornita premere **Salva memoria**, **NON premere** il tasto **INVIO**.")
+            st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**, **NON premere** il tasto **INVIO**.")
             # Timer e il campo di input
             st.session_state.start_time = time.time()
             show = True
@@ -240,7 +240,6 @@ def main():
 
     if st.button("Salva memoria"):
         duration = time.time() - st.session_state.start_time
-        st.write(f"Durata registrazione {duration} secondi")
         # Aggiungi i dati di questa registrazione alla sessione
         st.session_state.session_data.append({
             "Eta": eta,
@@ -259,8 +258,6 @@ def main():
             "Text": testo,
             "Time": duration
         })
-    
-        st.write(testo)
             
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(st.session_state.selected_word)
