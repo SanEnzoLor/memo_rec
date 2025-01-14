@@ -270,8 +270,11 @@ def main():
             if st.button("Termina il task"):
                 # Bottone per terminare la sessione
                 # Svuota lo stato della sessione
-                st.session_state.clear() 
-                st.cache_resource.clear()
+                for key in st.session_state.keys():
+                    del st.session_state[key]
+                #st.cache_resource.clear()
+                st.cache_data.clear()
+                
             
             
 if __name__ == "__main__":
