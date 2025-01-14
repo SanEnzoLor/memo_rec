@@ -227,7 +227,6 @@ def main():
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
-            show = False
     
     if show == True:
         # Mostra la parola spunto
