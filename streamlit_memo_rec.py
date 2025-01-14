@@ -131,7 +131,7 @@ def PCL5():
     st.write("2. Assistendo a un evento o gli eventi verificati ad altri.")
     st.write("3. Apprendendo che l'evento è accaduto a un parente o a un amico stretto.")
     st.write("4. Sperimentando un'esposizione ripetuta a dettagli estremi di eventi non noti verificati ad altri (e.g., i primi soccorritori che raccolgono parti di corpi; gli agenti di polizia ripetutamente esposti a dettagli di abusi su minori).")
-    trauma_event = st.selectbox("risposta", ["SI","NO"], index=1, label_visibility = False) # NO predefinito
+    trauma_event = st.selectbox("risposta", ["SI","NO"], index=1, label_visibility = "collapsed") # NO predefinito
     st.markdown("https://www.ptsd.va.gov/professional/articles/article-pdf/id1628840.pdf")
     st.markdown("https://www.ptsd.va.gov/professional/assessment/adult-sr/ptsd-checklist.asp")
     st.markdown("https://www.center-tbi.eu/files/approved-translations/Italian/ITALIAN_PCL_PW.pdf")
