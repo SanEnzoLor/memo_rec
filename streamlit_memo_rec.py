@@ -227,6 +227,7 @@ def main():
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
+            show = False
     
     if show == True:
         # Mostra la parola spunto
@@ -258,7 +259,6 @@ def main():
         # Rimuovi la parola utilizzata dalla lista
         st.session_state.remaining_words.remove(st.session_state.selected_word)
         st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-
         show = False
 
     # Bottone per salvare i dati
