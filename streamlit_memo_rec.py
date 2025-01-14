@@ -226,7 +226,7 @@ def main():
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
-            st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni.")
+            st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
     
     if show == True:
         # Mostra la parola spunto
@@ -266,13 +266,6 @@ def main():
         if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
             st.success("Grazie per aver partecipato al task.")
             st.warning("Ora per completare il salvataggio **invia una mail** a **lorenzocarozzi9826@gmail.com** avente in **allegato** il file appena scaricato '**dati.csv**'.")
-            st.warning("Poi cliccare su **Termina il task**.")
-            if st.button("Termina il task"):
-                # Bottone per terminare la sessione
-                # Svuota lo stato della sessione
-                del st.session_state
-
-                
             
             
 if __name__ == "__main__":
