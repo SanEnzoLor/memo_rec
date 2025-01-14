@@ -273,7 +273,6 @@ def main():
                 # Svuota lo stato della sessione
                 st.session_state.clear() 
                 st.cache_resource.clear()
-                st.rerun()
             
             
 if __name__ == "__main__":
