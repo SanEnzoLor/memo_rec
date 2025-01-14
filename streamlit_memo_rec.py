@@ -234,7 +234,7 @@ def main():
         st.write(f"**{st.session_state.selected_word}**")
     testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
 
-    if show == True:
+    if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria"):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
