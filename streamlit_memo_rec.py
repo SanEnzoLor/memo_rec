@@ -270,7 +270,7 @@ def main():
             if st.button("Termina il task"):
                 # Bottone per terminare la sessione
                 # Svuota lo stato della sessione
-                del st.session_state.session_data
+                del st.session_state
 
                 
             
