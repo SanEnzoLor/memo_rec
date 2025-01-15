@@ -220,6 +220,8 @@ def main():
     if "show" not in st.session_state:
         st.session_state.show = False
 
+    ten_w = False
+
     def on_button_i_click():
         st.session_state.start = True
         st.session_state.show = True
@@ -234,10 +236,10 @@ def main():
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
-            st.session_state.show == False
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
+            ten_w = True
     
-    if st.session_state.show == True:
+    if st.session_state.show == True and ten_w == False:
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
