@@ -235,7 +235,7 @@ def main():
 
     visible = lambda x: "collapsed" if x else "visible"
     testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
-    button = lambda x: True if len(x) == 0 else False
+    button = lambda x: True if len(x) == 0 || not show else False
     
     if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria", disabled = button(testo)):
