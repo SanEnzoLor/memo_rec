@@ -263,6 +263,7 @@ def main():
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             show = False
+            testo = ""
             
 
     # Bottone per salvare i dati
