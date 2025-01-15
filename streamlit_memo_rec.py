@@ -211,9 +211,11 @@ def main():
     # Gestione dello stato per i dati della sessione
     if "session_data" not in st.session_state:
         st.session_state.session_data = []  # Dati temporanei della sessione
-    if "remaining_words" not in st.session_state and st.session_state.change == True and gender == "Femminile":
+    if "remaining_words" not in st.session_state:
+        st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+    if st.session_state.change == True and gender == "Femminile":
         st.session_state.remaining_words = cue_words_f.copy()  # Parole rimanenti
-    if "remaining_words" not in st.session_state and st.session_state.change == True and gender != "Femminile":
+    if st.session_state.change == True and gender != "Femminile":
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
