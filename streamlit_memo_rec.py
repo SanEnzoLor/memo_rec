@@ -234,6 +234,7 @@ def main():
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
+            st.session_state.show == False
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
     
     if st.session_state.show == True:
