@@ -180,9 +180,13 @@ def PCL5():
 def main():
     st.title("**Indici Demografici**")
 
+    if "change" not in st.session_state:
+        st.session_state.change = False
+    def gend_sel():
+        st.session_state.change = True
     # Creazione di input per acquisire dati dall'utente
     eta = st.number_input("Inserisci l'età:", min_value=18, max_value=80, step=1)
-    gender = st.selectbox("Seleziona il genere in cui ti identifichi:", ["Maschile", "Femminile", "Non-binario", "Nessuno"], index=3)
+    gender = st.selectbox("Seleziona il genere in cui ti identifichi:", ["Maschile", "Femminile", "Non-binario", "Nessuno"], index=3, on_change = gend_sel)
     nazione = st.text_input("Scrivi la tua nazionalità:")
     educazione = st.selectbox("Seleziona il grado di istruzione più elevato conseguito:", ["Scuola primaria", "Scuola secondaria di primo grado", "Scuola secondaria di secondo grado", "Istituto tecnico superiore", "Università triennale", "Università magistrale", "Dottorato"])
     occupazione = st.selectbox("In questo momento hai un impiego:", ["SI","NO"])
@@ -207,9 +211,9 @@ def main():
     # Gestione dello stato per i dati della sessione
     if "session_data" not in st.session_state:
         st.session_state.session_data = []  # Dati temporanei della sessione
-    if "remaining_words" not in st.session_state and gender == "Femminile":
+    if "remaining_words" not in st.session_state and st.session_state.change == True and gender == "Femminile":
         st.session_state.remaining_words = cue_words_f.copy()  # Parole rimanenti
-    if "remaining_words" not in st.session_state and gender != "Femminile":
+    if "remaining_words" not in st.session_state and st.session_state.change == True and gender != "Femminile":
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
