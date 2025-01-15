@@ -222,6 +222,7 @@ def main():
 
     def on_button_i_click():
         st.session_state.start = True
+        st.session_state.show = True
     
     # Bottone per avviare la registrazione
     if st.button("Inizia", disabled = st.session_state.start, on_click = on_button_i_click):
@@ -229,7 +230,6 @@ def main():
             st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**.")
             # Timer e il campo di input
             st.session_state.start_time = time.time()
-            st.session_state.show = True
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
@@ -246,6 +246,7 @@ def main():
     
     def on_button_s_click():
         st.session_state.show = False
+        st.session_state.start = False
     
     if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria", disabled = not st.session_state.show, on_click = on_button_s_click):
@@ -272,7 +273,6 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-            st.session_state.start = False
             
 
     # Bottone per salvare i dati
