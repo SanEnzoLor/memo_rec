@@ -236,14 +236,16 @@ def main():
     visible = lambda x: "collapsed" if x else "visible"
     testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
     button_v = lambda x: True if len(x) == 0 else False
-    final_bool = True
-    if show:
-        final_bool = False
-    elif button_v(testo):
-        final_bool = False
-
     
     if len(st.session_state.remaining_words) != 0:
+        final_bool = True
+        if show:
+            final_bool = False
+        elif button_v(testo):
+            final_bool = False
+        #else:
+        #    final_bool = True
+
         if st.button("Salva memoria", disabled = final_bool, key = 0):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
