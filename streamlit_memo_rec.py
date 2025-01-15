@@ -215,8 +215,10 @@ def main():
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if st.session_state.change == True and gender == "Femminile":
         st.session_state.remaining_words = cue_words_f.copy()  # Parole rimanenti
+        st.session_state.change = False
     if st.session_state.change == True and gender != "Femminile":
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
+        st.session_state.change = False
     if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
     if "start_time" not in st.session_state:
