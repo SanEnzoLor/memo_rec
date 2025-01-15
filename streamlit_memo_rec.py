@@ -212,8 +212,6 @@ def main():
         st.session_state.selected_word = ""
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
-    if "testo" not in st.session_state:
-        st.session_state.testo = ""
     
     show = False
     
@@ -236,11 +234,11 @@ def main():
         st.write(f"**{st.session_state.selected_word}**")
 
     visible = lambda x: "collapsed" if x else "visible"
-    st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
     button_v = lambda x0, x1: len(x0) == 0 and not x1
     
     if len(st.session_state.remaining_words) != 0:
-        if st.button("Salva memoria", disabled = button_v(st.session_state.testo, show)):
+        if st.button("Salva memoria", disabled = button_v(testo, show)):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
@@ -257,7 +255,7 @@ def main():
                 "PCL-5-hyperarousal": results_p[3],
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": st.session_state.selected_word,
-                "Text": st.session_state.testo,
+                "Text": testo,
                 "Time": duration
             })
 
@@ -265,7 +263,6 @@ def main():
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             show = False
-            st.session_state.testo = ""
             
 
     # Bottone per salvare i dati
