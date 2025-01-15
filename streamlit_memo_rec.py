@@ -232,7 +232,7 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 200, key = len(st.session_state.remaining_words), disabled = True)
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 200, key = len(st.session_state.remaining_words), disabled = not show)
 
     if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria"):
