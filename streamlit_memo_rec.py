@@ -221,7 +221,7 @@ def main():
         st.session_state.show = False
 
     def on_button_i_click():
-        st.session_state.start = False
+        st.session_state.start = True
     
     # Bottone per avviare la registrazione
     if st.button("Inizia", disabled = st.session_state.start, on_click = on_button_i_click):
