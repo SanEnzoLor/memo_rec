@@ -239,7 +239,7 @@ def main():
     
     if len(st.session_state.remaining_words) != 0:
         final_bool = True
-        if show || button_v(testo):
+        if show or button_v(testo):
             final_bool = False
         else:
             final_bool = True
