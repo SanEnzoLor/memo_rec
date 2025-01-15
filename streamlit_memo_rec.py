@@ -219,7 +219,7 @@ def main():
         st.session_state.show = False
     
     # Bottone per avviare la registrazione
-    if st.button("Inizia"):
+    if st.button("Inizia", disabled = st.session_state.show):
         if len(st.session_state.remaining_words) != 0:
             st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**.")
             # Timer e il campo di input
