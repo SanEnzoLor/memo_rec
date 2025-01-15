@@ -181,8 +181,8 @@ def main():
     st.title("**Indici Demografici**")
 
     # Creazione di input per acquisire dati dall'utente
-    eta = st.number_input("Inserisci l'età:", min_value=6, max_value=80, step=1)
-    gender = st.selectbox("Seleziona il genere in cui ti identifichi:", ["Maschile", "Femminile", "Non-binario", "Nessuno"])
+    eta = st.number_input("Inserisci l'età:", min_value=18, max_value=80, step=1)
+    gender = st.selectbox("Seleziona il genere in cui ti identifichi:", ["Maschile", "Femminile", "Non-binario", "Nessuno"], index=3)
     nazione = st.text_input("Scrivi la tua nazionalità:")
     educazione = st.selectbox("Seleziona il grado di istruzione più elevato conseguito:", ["Scuola primaria", "Scuola secondaria di primo grado", "Scuola secondaria di secondo grado", "Istituto tecnico superiore", "Università triennale", "Università magistrale", "Dottorato"])
     occupazione = st.selectbox("In questo momento hai un impiego:", ["SI","NO"])
@@ -197,8 +197,8 @@ def main():
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
-    st.write("Il task consiste nel **ricordare e raccontare** un **evento personale** richiamato dalla **parola sonda** che verrà mostrata, indicando quanti più **dettagli** possibili in relazione alla memoria. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
-    st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole sonda differenti (selezionando prima **Salva memoria** e poi nuovamente **Inizia registrazione**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
+    st.write("Il task consiste nel **ricordare e scrivere** un **evento personale** richiamato dalla **parola**, che verrà mostrata una volta iniziato il task. Nel testo si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
+    st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole differenti (selezionando prima **Salva memoria** e poi nuovamente **Inizia**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     #st.write(f"Durata registrazione {record_seconds} secondi")
@@ -216,7 +216,7 @@ def main():
     show = False
     
     # Bottone per avviare la registrazione
-    if st.button("Inizia registrazione"):
+    if st.button("Inizia"):
         if len(st.session_state.remaining_words) != 0:
             st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**, **NON premere** il tasto **INVIO**.")
             # Timer e il campo di input
@@ -230,9 +230,9 @@ def main():
     
     if show == True:
         # Mostra la parola spunto
-        st.write("Racconta una memoria che recuperi a partire dalla parola spunto:")
+        st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-    testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia registrazione** e aver visto la **parola spunto**:", key = len(st.session_state.remaining_words))
+    testo = st.text_input("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", key = len(st.session_state.remaining_words))
 
     if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria"):
