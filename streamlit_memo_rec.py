@@ -198,7 +198,7 @@ def main():
     # Lista di parole spunto
     cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
     st.write("Il task consiste nel **ricordare e scrivere** un **evento personale** richiamato dalla **parola** che verrà mostrata una volta selezionato **Inizia**. Nel testo si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
-    st.write("Terminata la registrazione sarà possibile rieseguire il task per un massimo di 10 volte con parole differenti (selezionando prima **Salva memoria** e poi nuovamente **Inizia**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
+    st.write("Terminata la scrittura sarà possibile salvare la memoria appena descritta (selezionando **Salva memoria**) e poi rieseguire il task per un massimo di 10 volte con parole differenti (selezionando nuovamente **Inizia**), se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     #st.write(f"Durata registrazione {record_seconds} secondi")
@@ -218,7 +218,7 @@ def main():
     # Bottone per avviare la registrazione
     if st.button("Inizia"):
         if len(st.session_state.remaining_words) != 0:
-            st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**, **NON premere** il tasto **INVIO**.")
+            st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**.")
             # Timer e il campo di input
             st.session_state.start_time = time.time()
             show = True
@@ -234,7 +234,7 @@ def main():
         st.write(f"**{st.session_state.selected_word}**")
 
     visible = lambda x: "collapsed" if x else "visible"
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 400, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
 
     if len(st.session_state.remaining_words) != 0:
         if st.button("Salva memoria"):
@@ -268,7 +268,7 @@ def main():
         file = data_csv(st.session_state.session_data)
         if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
             st.success("Grazie per aver partecipato al task.")
-            st.warning("Ora per completare il salvataggio **invia una mail** a **lorenzocarozzi9826@gmail.com** avente in **allegato** il file appena scaricato '**dati.csv**'.")
+            st.warning("Ora per completare il salvataggio **invia una mail** cliccando sul seguente indirizzo: **lorenzocarozzi9826@gmail.com**, avente in **allegato** il file appena scaricato '**dati.csv**'.")
             
             
 if __name__ == "__main__":
