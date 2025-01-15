@@ -243,10 +243,10 @@ def main():
             final_bool = False
         elif button_v(testo):
             final_bool = False
-        #else:
-        #    final_bool = True
+        else:
+            final_bool = True
 
-        if st.button("Salva memoria", disabled = final_bool, key = 0):
+        if st.button("Salva memoria", disabled = final_bool):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
