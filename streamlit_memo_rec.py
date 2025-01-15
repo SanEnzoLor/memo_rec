@@ -238,7 +238,6 @@ def main():
 
     visible = lambda x: "collapsed" if x else "visible"
     testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not st.session_state.show, label_visibility = visible(st.session_state.show))
-    button_v = lambda x0, x1: len(x0) == 0 and not x1
     
     def on_button_click():
         st.session_state.show = False
@@ -268,7 +267,6 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-            #show = False
             
 
     # Bottone per salvare i dati
