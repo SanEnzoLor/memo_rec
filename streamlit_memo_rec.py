@@ -244,7 +244,7 @@ def main():
         st.session_state.show = False
     
     if len(st.session_state.remaining_words) != 0:
-        if st.button("Salva memoria", disabled = button_v(testo, st.session_state.show), on_click = on_button_click):
+        if st.button("Salva memoria", disabled = not st.session_state.show, on_click = on_button_click):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
