@@ -198,10 +198,10 @@ def main():
     # Lista di parole spunto
     if gender == "Femminile":
         if "cue_word" not in st.session_state:
-        st.session_state.cue_words = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
+            st.session_state.cue_words = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
     else:
         if "cue_word" not in st.session_state:
-        st.session_state.cue_words = ['ECCITATO', 'ANNOIATO', 'FELICE', 'FALLITO', 'FORTUNATO', 'DISPERATO', 'RILASSATO', 'SOLITARIO', 'SERENO', 'TRISTE']
+            st.session_state.cue_words = ['ECCITATO', 'ANNOIATO', 'FELICE', 'FALLITO', 'FORTUNATO', 'DISPERATO', 'RILASSATO', 'SOLITARIO', 'SERENO', 'TRISTE']
     st.write("Il task consiste nel **ricordare e scrivere** un **evento personale** richiamato dalla **parola** che verrà mostrata una volta selezionato **Inizia**. Nel testo si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
     st.write("Terminata la scrittura sarà possibile salvare la memoria appena descritta (selezionando **Salva memoria**), il task potrà essere rieseguito per un massimo di 10 volte con parole differenti (selezionando nuovamente **Inizia** e poi **Salva memoria**). Se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
