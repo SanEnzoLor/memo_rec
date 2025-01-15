@@ -215,8 +215,8 @@ def main():
         st.session_state.selected_word = ""
     if "start_time" not in st.session_state:
         st.session_state.start_time = 0
-    
-    show = False
+    if "show" not in st.session_state:
+        st.session_state.show = False
     
     # Bottone per avviare la registrazione
     if st.button("Inizia"):
@@ -224,24 +224,27 @@ def main():
             st.warning("Per il salvataggio della memoria fornita selezionare **Salva memoria**.")
             # Timer e il campo di input
             st.session_state.start_time = time.time()
-            show = True
+            st.session_state.show = True
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
     
-    if show == True:
+    if st.session_state.show == True:
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
 
     visible = lambda x: "collapsed" if x else "visible"
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not st.session_state.show, label_visibility = visible(st.session_state.show))
     button_v = lambda x0, x1: len(x0) == 0 and not x1
     
-    if len(st.session_state.remaining_words) != 0 and show == True:
-        if st.button("Salva memoria", disabled = button_v(testo, show)):
+    def on_button_click():
+        st.session_state.show = False
+    
+    if len(st.session_state.remaining_words) != 0:
+        if st.button("Salva memoria", disabled = button_v(testo, st.session_state.show), on_click = on_button_click):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
             st.session_state.session_data.append({
@@ -265,7 +268,7 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-            show = False
+            #show = False
             
 
     # Bottone per salvare i dati
