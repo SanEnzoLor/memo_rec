@@ -196,7 +196,10 @@ def main():
     #record_seconds = 6
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
-    cue_words = ['ECCITATə', 'ANNOIATə', 'FELICE', 'FALLITə', 'FORTUNATə', 'DISPERATə', 'RILASSATə', 'SOLITARIə', 'SERENə', 'TRISTE']
+    if gender == "Femminile":
+        cue_words = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
+    else:
+        cue_words = ['ECCITATO', 'ANNOIATO', 'FELICE', 'FALLITO', 'FORTUNATO', 'DISPERATO', 'RILASSATO', 'SOLITARIO', 'SERENO', 'TRISTE']
     st.write("Il task consiste nel **ricordare e scrivere** un **evento personale** richiamato dalla **parola** che verrà mostrata una volta selezionato **Inizia**. Nel testo si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
     st.write("Terminata la scrittura sarà possibile salvare la memoria appena descritta (selezionando **Salva memoria**), il task potrà essere rieseguito per un massimo di 10 volte con parole differenti (selezionando nuovamente **Inizia** e poi **Salva memoria**). Se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
@@ -237,7 +240,7 @@ def main():
     testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not show, label_visibility = visible(show))
     button_v = lambda x0, x1: len(x0) == 0 and not x1
     
-    if len(st.session_state.remaining_words) != 0:
+    if len(st.session_state.remaining_words) != 0 and show == True:
         if st.button("Salva memoria", disabled = button_v(testo, show)):
             duration = time.time() - st.session_state.start_time
             # Aggiungi i dati di questa registrazione alla sessione
