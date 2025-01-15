@@ -196,6 +196,7 @@ def main():
     #record_seconds = 6
     st.title("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
+    st.write(gender == "Femminile")
     if gender == "Femminile":
         cue_words = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
     else:
