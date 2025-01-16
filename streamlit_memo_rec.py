@@ -182,9 +182,9 @@ def main():
     col1, col2 = st.columns(2)
     # Mostra le immagini nelle colonne
     with col1:
-        st.image("https://github.com/SanEnzoLor/memo_rec/blob/main/image/logo_unige%20.png", use_column_width=True)
+        st.image("https://github.com/SanEnzoLor/memo_rec/blob/main/image/logo_unige%20.png", use_container_width=True)
     with col2:
-        st.image("https://github.com/SanEnzoLor/memo_rec/blob/main/image/logo_nextage%20.png", use_column_width=True)
+        st.image("https://github.com/SanEnzoLor/memo_rec/blob/main/image/logo_nextage%20.png", use_container_width=True)
     
     st.title("**Indici Demografici**")
 
