@@ -19,7 +19,7 @@ def save_and_upload_to_github(data):
     # Input per GitHub
     repo_name = "SanEnzoLor/memo_rec"
     branch_name = "main"
-    token = st.secrets["DB_TOKEN"]
+    token = st.secrets[DB_TOKEN]
 
     with open(file_name, "r") as file:
         content = file.read()
