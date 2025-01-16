@@ -183,9 +183,9 @@ def main():
     col1, col2 = st.columns(2)
     # Mostra le immagini nelle colonne
     with col1:
-        st.image("image/logo_unige.png", width = 100, use_container_width=True)
+        st.image("image/logo_unige.png", width = 50, use_container_width=True)
     with col2:
-        st.image("image/logo_nextage.png", width = 200, use_container_width=True)
+        st.image("image/logo_nextage.png", width = 300, use_container_width=True)
     
     st.title("**Indici Demografici**")
 
