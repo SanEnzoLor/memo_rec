@@ -5,8 +5,43 @@ import random
 import numpy as np
 
     
-    github_token = st.secrets["DB_TOKEN"]
-    repo_owner = st.secrets["DB_USERNAME"]
+
+import requests
+import json
+
+def save_and_upload_to_github(data):
+    # Input per i dati da salvare
+    columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
+    df = pd.DataFrame(data, columns=columns)
+    file_name = "dati.csv"
+    df_csv = df.to_csv(file_name, index=False)
+
+    # Input per GitHub
+    repo_name = "SanEnzoLor/memo_rec"
+    branch_name = "main"
+    token = st.secrets["DB_TOKEN"]
+
+    with open(file_name, "r") as file:
+        content = file.read()
+        # Creazione del payload per l'API di GitHub
+        url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
+        headers = {
+            "Authorization": f"token {token}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        payload = {
+            "message": "Aggiunta file CSV tramite Streamlit",
+            "content": content.encode("utf-8").decode("latin1"),
+            "branch": branch_name,
+        }
+        # Richiesta POST a GitHub
+        response = requests.put(url, headers=headers, data=json.dumps(payload))
+            
+        if response.status_code == 201:
+            st.success("File caricato con successo su GitHub!")
+        else:
+            st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
+
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_csv(data):
@@ -318,6 +353,7 @@ def main():
     if st.session_state.session_data:
         file = data_csv(st.session_state.session_data)
         if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
+            save_and_upload_to_github(data)
             st.success("Grazie per aver partecipato al task.")
             st.warning("Ora per completare il salvataggio **invia una mail** cliccando sul seguente indirizzo: **lorenzocarozzi9826@gmail.com**, avente in **allegato** il file appena scaricato '**dati.csv**'.")
             
