@@ -182,7 +182,7 @@ def main():
     col1, col2 = st.columns(2)
     # Mostra le immagini nelle colonne
     with col1:
-        st.image("https://raw.githubusercontent.com/SanEnzoLor/memo_rec/blob/main/image/logo_unige.png", use_container_width=True)
+        st.image("https://id.unige.it/sites/id.unige.it/files/2022-02/logo_orizzontale_COLORE.png?itok=RVe_3yOE", use_container_width=True)
     with col2:
         st.image("https://raw.githubusercontent.com/SanEnzoLor/memo_rec/blob/main/image/logo_nextage.png", use_container_width=True)
     
