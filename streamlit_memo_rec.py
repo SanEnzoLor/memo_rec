@@ -4,14 +4,19 @@ import time
 import random
 import numpy as np
 
+    
+    github_token = st.secrets["DB_TOKEN"]
+    repo_owner = st.secrets["DB_USERNAME"]
+
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_csv(data):
     """
     Funzione che acquisisce dati e li salva in un file CSV.
-    """
+    """    
     columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
     df = pd.DataFrame(data, columns=columns)
     df_csv = df.to_csv(index=False)
+    
     return df_csv
 
 # Funzione per somministrare il BDI2
