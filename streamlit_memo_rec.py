@@ -353,7 +353,7 @@ def main():
     if st.session_state.session_data:
         file = data_csv(st.session_state.session_data)
         if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
-            save_and_upload_to_github(data)
+            save_and_upload_to_github(st.session_state.session_data)
             st.success("Grazie per aver partecipato al task.")
             st.warning("Ora per completare il salvataggio **invia una mail** cliccando sul seguente indirizzo: **lorenzocarozzi9826@gmail.com**, avente in **allegato** il file appena scaricato '**dati.csv**'.")
             
