@@ -215,22 +215,22 @@ def main():
         st.session_state.remaining_words = cue_words.copy()  # Parole rimanenti
     if st.session_state.change == True and gender == "Femminile":
         corrispondenti = []
-        for parola1 in st.session_state.remaining_words:
+        for parola1 in cue_words_f:
             # Rimuovi l'ultima lettera di parola1
             base_parola1 = parola1[:-1]
-            # Controlla se esiste una parola in list2 che combacia con base_parola1
-            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words_f)
+            # Controlla se esiste una parola che combacia con base_parola1
+            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in st.session_state.remaining_words)
             if match_trovato:
                 corrispondenti.append(parola1)
         st.session_state.remaining_words = corrispondenti.copy()  # Parole rimanenti
         st.session_state.change = False
     if st.session_state.change == True and gender != "Femminile":
         corrispondenti = []
-        for parola1 in st.session_state.remaining_words:
+        for parola1 in cue_words:
             # Rimuovi l'ultima lettera di parola1
             base_parola1 = parola1[:-1]
             # Controlla se esiste una parola in list2 che combacia con base_parola1
-            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words)
+            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in st.session_state.remaining_words)
             if match_trovato:
                 corrispondenti.append(parola1)
         st.session_state.remaining_words = corrispondenti.copy()  # Parole rimanenti
