@@ -1,11 +1,8 @@
 import streamlit as st
 import pandas as pd
-import os
 import time
 import random
 import numpy as np
-import smtplib
-from PIL import Image, ImageOps
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_csv(data):
