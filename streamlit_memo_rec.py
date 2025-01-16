@@ -219,7 +219,7 @@ def main():
             # Rimuovi l'ultima lettera di parola1
             base_parola1 = parola1[:-1]
             # Controlla se esiste una parola in list2 che combacia con base_parola1
-            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_word_f)
+            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words_f)
             if match_trovato:
                 corrispondenti.append(parola1)
         st.session_state.remaining_words = corrispondenti  # Parole rimanenti
@@ -230,7 +230,7 @@ def main():
             # Rimuovi l'ultima lettera di parola1
             base_parola1 = parola1[:-1]
             # Controlla se esiste una parola in list2 che combacia con base_parola1
-            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_word)
+            match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words)
             if match_trovato:
                 corrispondenti.append(parola1)
         st.session_state.remaining_words = corrispondenti  # Parole rimanenti
