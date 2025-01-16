@@ -269,7 +269,7 @@ def main():
         st.write(f"**{st.session_state.selected_word}**")
 
     visible = lambda x: "collapsed" if x else "visible"
-    able = lambda x, y: not if x and not y
+    able = lambda x, y: not (if x and not y)
     testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
