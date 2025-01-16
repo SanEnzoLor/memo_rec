@@ -222,7 +222,7 @@ def main():
             match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words_f)
             if match_trovato:
                 corrispondenti.append(parola1)
-        st.session_state.remaining_words = corrispondenti  # Parole rimanenti
+        st.session_state.remaining_words = corrispondenti.copy()  # Parole rimanenti
         st.session_state.change = False
     if st.session_state.change == True and gender != "Femminile":
         corrispondenti = []
@@ -233,7 +233,7 @@ def main():
             match_trovato = any(base_parola1 == parola2[:-1] for parola2 in cue_words)
             if match_trovato:
                 corrispondenti.append(parola1)
-        st.session_state.remaining_words = corrispondenti  # Parole rimanenti
+        st.session_state.remaining_words = corrispondenti.copy()  # Parole rimanenti
         st.session_state.change = False
     if "selected_word" not in st.session_state:
         st.session_state.selected_word = ""
@@ -269,7 +269,8 @@ def main():
         st.write(f"**{st.session_state.selected_word}**")
 
     visible = lambda x: "collapsed" if x else "visible"
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = not st.session_state.show, label_visibility = visible(st.session_state.show))
+    able = lambda x, y: not if x and not y
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
         st.session_state.show = False
