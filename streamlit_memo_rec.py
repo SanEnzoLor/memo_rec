@@ -5,6 +5,7 @@ import time
 import random
 import numpy as np
 import smtplib
+from PIL import Image, ImageOps
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
 def data_csv(data):
@@ -178,13 +179,18 @@ def PCL5():
 
 # Interfaccia Streamlit
 def main():
+    # Funzione per aggiungere sfondo bianco
+    def add_background(image_path):
+        image = Image.open(image_path)
+        return ImageOps.expand(image, border=20, fill='white')
+    
     # Crea due colonne per le immagini
     col1, col2 = st.columns(2)
     # Mostra le immagini nelle colonne
     with col1:
-        st.image("image/logo_unige.png", use_container_width=True)
+        st.image(add_background("image/logo_unige.png"), use_container_width=True)
     with col2:
-        st.image("image/logo_nextage.png", use_container_width=True)
+        st.image(add_background("image/logo_nextage.png"), use_container_width=True)
     
     st.title("**Indici Demografici**")
 
