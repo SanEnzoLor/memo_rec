@@ -3,8 +3,8 @@ pandas
 numpy
 requests
 
-streamlit-webrtc
-pydub
-twilio
 av==9.2.0
-deepspeech
+deepspeech==0.9.3
+pydub==0.25.1
+streamlit_webrtc==0.45.0
+twilio~=8.1.0
