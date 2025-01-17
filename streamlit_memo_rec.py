@@ -64,7 +64,7 @@ def save_and_upload_to_github(data):
     else:
         st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
         
-    st.write(f"Il file caricato è:\n{new_df}")
+    st.write(new_df)
     
 
 # Funzione per somministrare il BDI2
