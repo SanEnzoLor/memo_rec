@@ -8,6 +8,26 @@ import json
 import base64
 from io import StringIO
 
+
+import streamlit as st
+from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
+import numpy as np
+from scipy.io.wavfile import write
+import queue
+
+# Audio Processor per gestire i dati audio
+class AudioProcessor(AudioProcessorBase):
+    def __init__(self):
+        self.audio_frames = queue.Queue()
+
+    def recv_audio(self, frame):
+        # Salva i dati audio nel buffer
+        self.audio_frames.put(frame.to_ndarray())
+        return frame
+
+
+
+
 def save_and_upload_to_github(data):
     # Input per i dati da salvare
     columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
@@ -368,7 +388,46 @@ def main():
             save_and_upload_to_github(st.session_state.session_data)
             st.success("Grazie per aver partecipato al task.")
             st.session_state.session_data.clear()
-            
+
+
+
+
+# Pulsante per avviare la registrazione
+st.write("Premi 'Start' per iniziare a registrare audio.")
+webrtc_ctx = webrtc_streamer(
+    key="audio-only",
+    mode="sendonly",  # Solo invio di dati (nessun rendering di video/audio in tempo reale)
+    media_stream_constraints={"audio": True, "video": False},
+    audio_processor_factory=AudioProcessor,
+    async_processing=True,
+)
+
+if webrtc_ctx and webrtc_ctx.audio_processor:
+    # Mostra un pulsante per salvare l'audio
+    if st.button("Salva audio"):
+        audio_processor = webrtc_ctx.audio_processor
+        audio_frames = []
+        
+        # Estrai i dati audio dalla coda
+        while not audio_processor.audio_frames.empty():
+            audio_frames.append(audio_processor.audio_frames.get())
+
+        # Combina tutti i frame in un array NumPy
+        if audio_frames:
+            audio_data = np.concatenate(audio_frames, axis=0)
+            sample_rate = 48000  # Sample rate predefinito di WebRTC
+            write("output.wav", sample_rate, audio_data)
+            st.success("Audio salvato come 'output.wav'!")
+
+            # Riproduci l'audio salvato
+            with open("output.wav", "rb") as audio_file:
+                st.audio(audio_file, format="audio/wav")
+        else:
+            st.warning("Nessun audio registrato. Assicurati di premere 'Start' e parlare.")
+
+    
+    
+
             
 if __name__ == "__main__":
     main()
