@@ -396,7 +396,6 @@ def main():
     st.write("Premi 'Start' per iniziare a registrare audio.")
     webrtc_ctx = webrtc_streamer(
         key="audio-only",
-        mode="SENDONLY",  # Solo invio di dati (nessun rendering di video/audio in tempo reale)
         media_stream_constraints={"audio": True, "video": False},
         audio_processor_factory=AudioProcessor,
         async_processing=True,
