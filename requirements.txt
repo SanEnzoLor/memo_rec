@@ -4,5 +4,6 @@ numpy
 streamlit
 
 pydub
+streamlit-audiorec
 SpeechRecognition
 sounddevice
