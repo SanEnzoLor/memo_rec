@@ -26,8 +26,6 @@ from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
 HERE = Path(__file__).parent
 
-logger = logging.getLogger(__name__)
-
 
 # This code is based on https://github.com/streamlit/demo-self-driving/blob/230245391f2dda0cb464008195a470751c01770b/streamlit_app.py#L48  # noqa: E501
 def download_file(url, download_to: Path, expected_size=None):
@@ -75,39 +73,12 @@ def download_file(url, download_to: Path, expected_size=None):
             progress_bar.empty()
 
 
-# This code is based on https://github.com/whitphx/streamlit-webrtc/blob/c1fe3c783c9e8042ce0c95d789e833233fd82e74/sample_utils/turn.py
-@st.cache_data  # type: ignore
-def get_ice_servers():
-    """Use Twilio's TURN server because Streamlit Community Cloud has changed
-    its infrastructure and WebRTC connection cannot be established without TURN server now.  # noqa: E501
-    We considered Open Relay Project (https://www.metered.ca/tools/openrelay/) too,
-    but it is not stable and hardly works as some people reported like https://github.com/aiortc/aiortc/issues/832#issuecomment-1482420656  # noqa: E501
-    See https://github.com/whitphx/streamlit-webrtc/issues/1213
-    """
-
-    # Ref: https://www.twilio.com/docs/stun-turn/api
-    try:
-        account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-        auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-    except KeyError:
-        logger.warning(
-            "Twilio credentials are not set. Fallback to a free STUN server from Google."  # noqa: E501
-        )
-        return [{"urls": ["stun:stun.l.google.com:19302"]}]
-
-    client = Client(account_sid, auth_token)
-
-    token = client.tokens.create()
-
-    return token.ice_servers
-
-
 def app_sst(model_path: str, lm_path: str, lm_alpha: float, lm_beta: float, beam: int):
     webrtc_ctx = webrtc_streamer(
         key="speech-to-text",
         mode=WebRtcMode.SENDONLY,
         audio_receiver_size=1024,
-        rtc_configuration={"iceServers": get_ice_servers()},
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         media_stream_constraints={"video": False, "audio": True},
     )
 
@@ -394,12 +365,12 @@ def PCL5():
 # Interfaccia Streamlit
 def main():   
     # Crea due colonne per le immagini
-    #col1, col2 = st.columns([0.81, 1])
+    col1, col2 = st.columns([0.81, 1])
     # Mostra le immagini nelle colonne
-    #with col1:
-    st.image("image/logo_unige.png")#, use_container_width=True)
-    #with col2:
-    st.image("image/logo_nextage.png")#, use_container_width=True)
+    with col1:
+        st.image("image/logo_unige.png", use_container_width=True)
+    with col2:
+    st.image("image/logo_nextage.png", use_container_width=True)
     
     st.title("**Indici Demografici**")
 
@@ -561,23 +532,4 @@ def main():
 
             
 if __name__ == "__main__":
-    import os
-
-    DEBUG = os.environ.get("DEBUG", "false").lower() not in ["false", "no", "0"]
-
-    logging.basicConfig(
-        format="[%(asctime)s] %(levelname)7s from %(name)s in %(pathname)s:%(lineno)d: "
-        "%(message)s",
-        force=True,
-    )
-
-    logger.setLevel(level=logging.DEBUG if DEBUG else logging.INFO)
-
-    st_webrtc_logger = logging.getLogger("streamlit_webrtc")
-    st_webrtc_logger.setLevel(logging.DEBUG)
-
-    fsevents_logger = logging.getLogger("fsevents")
-    fsevents_logger.setLevel(logging.WARNING)
-
-    
     main()
