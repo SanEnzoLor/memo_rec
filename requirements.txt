@@ -4,4 +4,4 @@ numpy
 requests
 
 streamlit-webrtc
-scipy
+pydub
