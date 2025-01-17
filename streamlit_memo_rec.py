@@ -30,7 +30,7 @@ def save_and_upload_to_github(data):
         content = response.json()
         # Decodifica e carica i dati esistenti
         existing_data = base64.b64decode(content["content"]).decode("utf-8")
-        existing_df = pd.read_csv(pd.compat.StringIO(existing_data))
+        existing_df = pd.read_csv(existing_data)
     else:
         sha = None  # Il file non esiste ancora
         existing_df = pd.DataFrame()  # DataFrame vuoto
