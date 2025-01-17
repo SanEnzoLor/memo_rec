@@ -3,9 +3,6 @@ import pandas as pd
 import time
 import random
 import numpy as np
-
-
-
 import requests
 import json
 import base64
@@ -13,17 +10,13 @@ import base64
 def save_and_upload_to_github(data):
     # Input per i dati da salvare
     columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
-    df = pd.DataFrame(data, columns=columns)
+    new_df = pd.DataFrame(data, columns=columns)
     file_name = "dati.csv"
-    df_csv = df.to_csv(file_name, index=False)
 
     # Input per GitHub
     repo_name = "SanEnzoLor/memo_rec"
     branch_name = "main"
     token = st.secrets["token"]
-
-    with open(file_name, "rb") as file:
-        content = base64.b64encode(file.read()).decode("utf-8")  # Codifica Base64
         
     # Verifica se il file esiste nella repository
     url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
@@ -34,9 +27,23 @@ def save_and_upload_to_github(data):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:  # Il file esiste già
         sha = response.json()["sha"]
+        content = response.json()
+        # Decodifica e carica i dati esistenti
+        existing_data = base64.b64decode(content["content"]).decode("utf-8")
+        existing_df = pd.read_csv(pd.compat.StringIO(existing_data))
     else:
         sha = None  # Il file non esiste ancora
+        existing_df = pd.DataFrame()  # DataFrame vuoto
 
+    # Combina i dati esistenti con i nuovi dati
+    combined_df = pd.concat([existing_df, new_df], ignore_index=True)
+
+    # Salva il nuovo DataFrame in CSV
+    combined_csv = combined_df.to_csv(index=False)
+
+    # Codifica il contenuto aggiornato in Base64
+    content = base64.b64encode(combined_csv.encode("utf-8")).decode("utf-8")
+    
     # Creazione del payload per l'API di GitHub
     payload = {
         "message": "Aggiunta file CSV tramite Streamlit",
