@@ -22,6 +22,7 @@ def audio_recorder():
     st.markdown(
         """
         <script>
+        let audioBase64 = "";
         const recordAudio = () => {
             navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
@@ -34,19 +35,29 @@ def audio_recorder():
                     const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                     const reader = new FileReader();
                     reader.onloadend = () => {
-                        const audioBase64 = reader.result.split(',')[1];
-                        window.parent.postMessage({ audio: audioBase64 }, "*");
+                        audioBase64 = reader.result.split(',')[1];
+                        const input = window.parent.document.querySelector("input#audio_input");
+                        input.value = audioBase64;
+                        input.dispatchEvent(new Event("input", { bubbles: true }));
                     };
                     reader.readAsDataURL(audioBlob);
                 };
                 mediaRecorder.start();
-                setTimeout(() => mediaRecorder.stop(), 5000); // stop after 5 seconds
+                setTimeout(() => mediaRecorder.stop(), 5000); // Stop after 5 seconds
             });
         };
-        recordAudio();
+
+        const startButton = document.createElement("button");
+        startButton.textContent = "Start Recording";
+        startButton.style = "margin: 10px; padding: 10px; background-color: green; color: white; border: none; border-radius: 5px; cursor: pointer;";
+        startButton.onclick = recordAudio;
+
+        const parent = window.parent.document.body;
+        parent.appendChild(startButton);
         </script>
+        <input type="text" id="audio_input" style="display:none;">
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
 # Funzione per decodificare l'audio da base64
@@ -75,7 +86,10 @@ def app_sst():
     st.write("Premi il bottone per registrare l'audio. L'audio verrà registrato per 5 secondi.")
     
     # Usa il componente JavaScript per registrare l'audio
-    audio_base64 = st.text_input("Registrazione Audio", "", key="audio")
+    audio_recorder()
+    
+    # Input nascosto per ricevere l'audio registrato
+    audio_base64 = st.text_input("Registrazione Audio", "", key="audio_input")
     
     if audio_base64:
         # Decodifica l'audio in base64
