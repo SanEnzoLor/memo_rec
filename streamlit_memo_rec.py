@@ -10,7 +10,7 @@ from io import StringIO
 
 
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
+from streamlit_webrtc import webrtc_streamer, AudioProcessorBase, RTCConfiguration
 import numpy as np
 from scipy.io.wavfile import write
 import queue
@@ -389,14 +389,19 @@ def main():
             st.success("Grazie per aver partecipato al task.")
             st.session_state.session_data.clear()
 
+    
 
 
+    RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
 
     # Pulsante per avviare la registrazione
     st.write("Premi 'Start' per iniziare a registrare audio.")
     webrtc_ctx = webrtc_streamer(
         key="audio-only",
         media_stream_constraints={"audio": True, "video": False},
+        
+        rtc_configuration=RTC_CONFIGURATION,
+        
         audio_processor_factory=AudioProcessor,
         async_processing=True,
     )
