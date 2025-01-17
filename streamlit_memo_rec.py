@@ -10,17 +10,11 @@ from io import StringIO
 
 
 
-import logging
-import logging.handlers
+
 import queue
-import threading
 import urllib.request
-import os
-from collections import deque
 from pathlib import Path
-from typing import List
 import pydub
-from twilio.rest import Client
 from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
 
