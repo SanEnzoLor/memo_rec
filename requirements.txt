@@ -4,4 +4,6 @@ numpy
 streamlit
 
 pydub
-streamlit_webrtc
+SpeechRecognition
+soundfile
+sounddevice
