@@ -10,133 +10,84 @@ from io import StringIO
 
 
 
+import soundfile as sf
+import io
+import os
+from pydub import AudioSegment
+import speech_recognition as sr
+from io import BytesIO
 
-import queue
-import urllib.request
-from pathlib import Path
-import pydub
-from streamlit_webrtc import WebRtcMode, webrtc_streamer
-
-
-HERE = Path(__file__).parent
-
-
-# This code is based on https://github.com/streamlit/demo-self-driving/blob/230245391f2dda0cb464008195a470751c01770b/streamlit_app.py#L48  # noqa: E501
-def download_file(url, download_to: Path, expected_size=None):
-    # Don't download the file twice.
-    # (If possible, verify the download using the file length.)
-    if download_to.exists():
-        if expected_size:
-            if download_to.stat().st_size == expected_size:
-                return
-        else:
-            st.info(f"{url} is already downloaded.")
-            if not st.button("Download again?"):
-                return
-
-    download_to.parent.mkdir(parents=True, exist_ok=True)
-
-    # These are handles to two visual elements to animate.
-    weights_warning, progress_bar = None, None
-    try:
-        weights_warning = st.warning("Downloading %s..." % url)
-        progress_bar = st.progress(0)
-        with open(download_to, "wb") as output_file:
-            with urllib.request.urlopen(url) as response:
-                length = int(response.info()["Content-Length"])
-                counter = 0.0
-                MEGABYTES = 2.0 ** 20.0
-                while True:
-                    data = response.read(8192)
-                    if not data:
-                        break
-                    counter += len(data)
-                    output_file.write(data)
-
-                    # We perform animation by overwriting the elements.
-                    weights_warning.warning(
-                        "Downloading %s... (%6.2f/%6.2f MB)"
-                        % (url, counter / MEGABYTES, length / MEGABYTES)
-                    )
-                    progress_bar.progress(min(counter / length, 1.0))
-    # Finally, we remove these visual elements by calling .empty().
-    finally:
-        if weights_warning is not None:
-            weights_warning.empty()
-        if progress_bar is not None:
-            progress_bar.empty()
-
-
-def app_sst(model_path: str, lm_path: str, lm_alpha: float, lm_beta: float, beam: int):
-    webrtc_ctx = webrtc_streamer(
-        key="speech-to-text",
-        mode=WebRtcMode.SENDONLY,
-        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-        media_stream_constraints={"video": False, "audio": True},
+# Funzione per il componente JavaScript di registrazione audio
+def audio_recorder():
+    """JavaScript component to record audio."""
+    st.markdown(
+        """
+        <script>
+        const recordAudio = () => {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                const mediaRecorder = new MediaRecorder(stream);
+                const audioChunks = [];
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const audioBase64 = reader.result.split(',')[1];
+                        window.parent.postMessage({ audio: audioBase64 }, "*");
+                    };
+                    reader.readAsDataURL(audioBlob);
+                };
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 5000); // stop after 5 seconds
+            });
+        };
+        recordAudio();
+        </script>
+        """,
+        unsafe_allow_html=True
     )
 
-    status_indicator = st.empty()
+# Funzione per decodificare l'audio da base64
+def decode_audio(base64_audio):
+    audio_bytes = base64.b64decode(base64_audio)
+    return BytesIO(audio_bytes)
 
-    if not webrtc_ctx.state.playing:
-        return
+# Funzione per trascrivere l'audio
+def transcribe_audio(audio_file):
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(audio_file) as source:
+        audio_data = recognizer.record(source)
+        try:
+            text = recognizer.recognize_google(audio_data, language="it-IT")
+            return text
+        except sr.UnknownValueError:
+            return "Non è stato possibile comprendere l'audio."
+        except sr.RequestError as e:
+            return f"Errore nel servizio di riconoscimento vocale: {e}"
 
-    status_indicator.write("Loading...")
-    text_output = st.empty()
-    stream = None
-
-    while True:
-            
-        st.write("app")
+# Funzione principale dell'app
+def app_sst():
+    st.title("Speech to Text - Registrazione Audio")
     
-        if webrtc_ctx.audio_receiver:
-                
-            st.write("app")
+    # Mostra un messaggio iniziale
+    st.write("Premi il bottone per registrare l'audio. L'audio verrà registrato per 5 secondi.")
     
-            if stream is None:
-                    
-                st.write("app")
+    # Usa il componente JavaScript per registrare l'audio
+    audio_base64 = st.text_input("Registrazione Audio", "", key="audio")
     
-                from deepspeech import Model
-
-                model = Model(model_path)
-                model.enableExternalScorer(lm_path)
-                model.setScorerAlphaBeta(lm_alpha, lm_beta)
-                model.setBeamWidth(beam)
-
-                stream = model.createStream()
-
-                status_indicator.write("Model loaded.")
-
-            sound_chunk = pydub.AudioSegment.empty()
-            try:
-                audio_frames = webrtc_ctx.audio_receiver.get_frames(timeout=1)
-            except queue.Empty:
-                time.sleep(0.1)
-                status_indicator.write("No frame arrived.")
-                continue
-
-            status_indicator.write("Running. Say something!")
-
-            for audio_frame in audio_frames:
-                sound = pydub.AudioSegment(
-                    data=audio_frame.to_ndarray().tobytes(),
-                    sample_width=audio_frame.format.bytes,
-                    frame_rate=audio_frame.sample_rate,
-                    channels=len(audio_frame.layout.channels),
-                )
-                sound_chunk += sound
-
-            if len(sound_chunk) > 0:
-                sound_chunk = sound_chunk.set_channels(1).set_frame_rate(
-                    model.sampleRate()
-                )
-                buffer = np.array(sound_chunk.get_array_of_samples())
-                stream.feedAudioContent(buffer)
-                text = stream.intermediateDecode()
-                text_output.markdown(f"**Text:** {text}")
-        else:
-            status_indicator.write("AudioReciver is not set. Abort.")
-            break
+    if audio_base64:
+        # Decodifica l'audio in base64
+        audio_file = decode_audio(audio_base64)
+        
+        # Usa la libreria speech_recognition per trascrivere l'audio
+        transcription = transcribe_audio(audio_file)
+        
+        # Mostra il testo trascritto
+        st.write("Testo trascritto:")
+        st.write(transcription)
 
 
 
