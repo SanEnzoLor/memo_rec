@@ -8,6 +8,7 @@ import numpy as np
 
 import requests
 import json
+import base64
 
 def save_and_upload_to_github(data):
     # Input per i dati da salvare
