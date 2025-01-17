@@ -74,9 +74,7 @@ def app_sst(model_path: str, lm_path: str, lm_alpha: float, lm_beta: float, beam
         rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         media_stream_constraints={"video": False, "audio": True},
     )
-    
-    st.write("app")
-    
+
     status_indicator = st.empty()
 
     if not webrtc_ctx.state.playing:
@@ -87,8 +85,17 @@ def app_sst(model_path: str, lm_path: str, lm_alpha: float, lm_beta: float, beam
     stream = None
 
     while True:
+            
+        st.write("app")
+    
         if webrtc_ctx.audio_receiver:
+                
+            st.write("app")
+    
             if stream is None:
+                    
+                st.write("app")
+    
                 from deepspeech import Model
 
                 model = Model(model_path)
