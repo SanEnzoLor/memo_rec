@@ -25,22 +25,34 @@ def save_and_upload_to_github(data):
     with open(file_name, "rb") as file:
         content = base64.b64encode(file.read()).decode("utf-8")  # Codifica Base64
         
-    # Creazione del payload per l'API di GitHub
+    # Verifica se il file esiste nella repository
     url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
     headers = {
         "Authorization": f"token {token}",
         "Accept": "application/vnd.github.v3+json",
     }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:  # Il file esiste già
+        sha = response.json()["sha"]
+    else:
+        sha = None  # Il file non esiste ancora
+
+    # Creazione del payload per l'API di GitHub
     payload = {
         "message": "Aggiunta file CSV tramite Streamlit",
         "content": content,
         "branch": branch_name,
     }
+    if sha:  # Se il file esiste, aggiungi "sha" al payload
+        payload["sha"] = sha
+    
     # Richiesta POST a GitHub
     response = requests.put(url, headers=headers, data=json.dumps(payload))
             
-    if response.status_code == 201:
-        st.success("File caricato con successo su GitHub!")
+    if response.status_code == 200:  # 200 = aggiornato
+        st.success("File aggiornato con successo su GitHub!")
+    if response.status_code == 201:  # 201 = creato
+        st.success("File creato con successo su GitHub!")
     else:
         st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
 
