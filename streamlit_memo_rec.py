@@ -394,12 +394,12 @@ def PCL5():
 # Interfaccia Streamlit
 def main():   
     # Crea due colonne per le immagini
-    col1, col2 = st.columns([0.81, 1])
+    #col1, col2 = st.columns([0.81, 1])
     # Mostra le immagini nelle colonne
-    with col1:
-        st.image("image/logo_unige.png", use_container_width=True)
-    with col2:
-        st.image("image/logo_nextage.png", use_container_width=True)
+    #with col1:
+    st.image("image/logo_unige.png", use_container_width=True)
+    #with col2:
+    st.image("image/logo_nextage.png", use_container_width=True)
     
     st.title("**Indici Demografici**")
 
