@@ -6,7 +6,6 @@ import numpy as np
 import requests
 import json
 import base64
-
 from io import StringIO
 
 def save_and_upload_to_github(data):
@@ -64,6 +63,8 @@ def save_and_upload_to_github(data):
         st.success("File creato con successo su GitHub!")
     else:
         st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
+        
+    st.write(f"Il file caricato è:\n{new_df}")
 
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
@@ -374,11 +375,10 @@ def main():
 
     # Bottone per salvare i dati
     if st.session_state.session_data:
-        file = data_csv(st.session_state.session_data)
-        if st.download_button(label = "Salva Dati", data = file, file_name = "dati.csv"):
+        if st.button(label = "Salva Dati"):
             save_and_upload_to_github(st.session_state.session_data)
             st.success("Grazie per aver partecipato al task.")
-            st.warning("Ora per completare il salvataggio **invia una mail** cliccando sul seguente indirizzo: **lorenzocarozzi9826@gmail.com**, avente in **allegato** il file appena scaricato '**dati.csv**'.")
+            st.session_state.session_data.clear()
             
             
 if __name__ == "__main__":
