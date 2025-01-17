@@ -104,19 +104,14 @@ def app_sst():
         st.markdown('<script>stopRecording();</script>', unsafe_allow_html=True)
         st.write("Registrazione terminata. Elaborazione dell'audio...")
         
-        # Recupera i dati registrati
-        audio_base64 = st.text_input("Registrazione Audio", "", key="audio")
-        
-        if audio_base64:
-            # Decodifica l'audio in base64
-            audio_file = decode_audio(audio_base64)
+        audio_file = decode_audio(audio_base64)
             
-            # Usa la libreria speech_recognition per trascrivere l'audio
-            transcription = transcribe_audio(audio_file)
+        # Usa la libreria speech_recognition per trascrivere l'audio
+        transcription = transcribe_audio(audio_file)
             
-            # Mostra il testo trascritto
-            st.write("Testo trascritto:")
-            st.write(transcription)
+        # Mostra il testo trascritto
+        st.write("Testo trascritto:")
+        st.write(transcription)
 
 
 
