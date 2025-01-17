@@ -21,8 +21,8 @@ def save_and_upload_to_github(data):
     branch_name = "main"
     token = st.secrets["token"]
 
-    with open(file_name, "r") as file:
-        content = file.read()
+    with open(file_name, "rb") as file:
+        content = base64.b64encode(file.read()).decode("utf-8")  # Codifica Base64
         
     # Creazione del payload per l'API di GitHub
     url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
@@ -32,7 +32,7 @@ def save_and_upload_to_github(data):
     }
     payload = {
         "message": "Aggiunta file CSV tramite Streamlit",
-        "content": content.encode("utf-8").decode("latin1"),
+        "content": content,
         "branch": branch_name,
     }
     # Richiesta POST a GitHub
