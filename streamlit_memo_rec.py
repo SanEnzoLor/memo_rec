@@ -9,6 +9,7 @@ import base64
 from io import StringIO
 
 
+from st_audiorec import st_audiorec
 
 import io
 import os
@@ -16,51 +17,7 @@ from pydub import AudioSegment
 import speech_recognition as sr
 from io import BytesIO
 
-# Funzione per il componente JavaScript di registrazione audio
-def audio_recorder():
-    """JavaScript component to record audio."""
-    st.markdown(
-        """
-        <script>
-        let mediaRecorder;
-        let audioChunks = [];
-        let isRecording = false;
 
-        function startRecording() {
-            if (!isRecording) {
-                navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                    mediaRecorder = new MediaRecorder(stream);
-                    mediaRecorder.ondataavailable = event => {
-                        audioChunks.push(event.data);
-                    };
-                    mediaRecorder.onstop = () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                            const audioBase64 = reader.result.split(',')[1];
-                            window.parent.postMessage({ audio: audioBase64 }, "*");
-                        };
-                        reader.readAsDataURL(audioBlob);
-                    };
-                    mediaRecorder.start();
-                    isRecording = true;
-                });
-            }
-        }
-
-        function stopRecording() {
-            if (isRecording && mediaRecorder) {
-                mediaRecorder.stop();
-                isRecording = false;
-            }
-        }
-
-        window.startRecording = startRecording;
-        window.stopRecording = stopRecording;
-        </script>
-        """,
-        unsafe_allow_html=True
-    )
 
 # Funzione per decodificare l'audio da base64
 def decode_audio(base64_audio):
@@ -80,38 +37,6 @@ def transcribe_audio(audio_file):
         except sr.RequestError as e:
             return f"Errore nel servizio di riconoscimento vocale: {e}"
 
-# Funzione principale dell'app
-def app_sst():
-    st.title("Speech to Text - Registrazione Audio")
-    
-    # Mostra pulsanti per avviare e fermare la registrazione
-    start_button = st.button("Inizia registrazione")
-    stop_button = st.button("Ferma registrazione")
-    
-    # Usa il componente JavaScript per configurare i comandi di registrazione
-    audio_recorder()
-    
-    # Mostra istruzioni
-    st.write("Premi 'Inizia registrazione' per avviare l'acquisizione audio.")
-    st.write("Dopo aver terminato, premi 'Ferma registrazione' per processare l'audio.")
-    
-    # Controlla i pulsanti per avviare/fermare la registrazione
-    if start_button:
-        st.markdown('<script>startRecording();</script>', unsafe_allow_html=True)
-        st.write("Registrazione avviata...")
-    
-    if stop_button:
-        st.markdown('<script>stopRecording();</script>', unsafe_allow_html=True)
-        st.write("Registrazione terminata. Elaborazione dell'audio...")
-        
-        audio_file = decode_audio(audio_base64)
-            
-        # Usa la libreria speech_recognition per trascrivere l'audio
-        transcription = transcribe_audio(audio_file)
-            
-        # Mostra il testo trascritto
-        st.write("Testo trascritto:")
-        st.write(transcription)
 
 
 
@@ -489,7 +414,24 @@ def main():
 
     
     
-    app_sst()
+    wav_audio_data = st_audiorec() # tadaaaa! yes, that's it! :D
+
+    # add some spacing and informative messages
+    col_info, col_space = st.columns([0.57, 0.43])
+    with col_info:
+        st.write('\n')  # add vertical spacer
+        st.write('\n')  # add vertical spacer
+        st.write('The .wav audio data, as received in the backend Python code,'
+                 ' will be displayed below this message as soon as it has'
+                 ' been processed. [This informative message is not part of'
+                 ' the audio recorder and can be removed easily] 🎈')
+
+    if wav_audio_data is not None:
+        # display audio data as received on the Python side
+        col_playback, col_space = st.columns([0.58,0.42])
+        with col_playback:
+            st.audio(wav_audio_data, format='audio/wav')
+
 
 
     
