@@ -23,24 +23,25 @@ def save_and_upload_to_github(data):
 
     with open(file_name, "r") as file:
         content = file.read()
-        # Creazione del payload per l'API di GitHub
-        url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
-        headers = {
-            "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json",
-        }
-        payload = {
-            "message": "Aggiunta file CSV tramite Streamlit",
-            "content": content.encode("utf-8").decode("latin1"),
-            "branch": branch_name,
-        }
-        # Richiesta POST a GitHub
-        response = requests.put(url, headers=headers, data=json.dumps(payload))
+        
+    # Creazione del payload per l'API di GitHub
+    url = f"https://api.github.com/repos/{repo_name}/contents/{file_name}"
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json",
+    }
+    payload = {
+        "message": "Aggiunta file CSV tramite Streamlit",
+        "content": content.encode("utf-8").decode("latin1"),
+        "branch": branch_name,
+    }
+    # Richiesta POST a GitHub
+    response = requests.put(url, headers=headers, data=json.dumps(payload))
             
-        if response.status_code == 201:
-            st.success("File caricato con successo su GitHub!")
-        else:
-            st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
+    if response.status_code == 201:
+        st.success("File caricato con successo su GitHub!")
+    else:
+        st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
 
 
 # Funzione per salvare le informazioni in un csv e caricarlo su Dropbox
