@@ -51,7 +51,7 @@ def save_and_upload_to_github(data):
             
     if response.status_code == 200:  # 200 = aggiornato
         st.success("File aggiornato con successo su GitHub!")
-    if response.status_code == 201:  # 201 = creato
+    elif response.status_code == 201:  # 201 = creato
         st.success("File creato con successo su GitHub!")
     else:
         st.error(f"Errore durante l'upload: {response.status_code}\n{response.json()}")
