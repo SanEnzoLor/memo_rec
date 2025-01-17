@@ -399,7 +399,6 @@ def main():
     webrtc_ctx = webrtc_streamer(
         key="audio-only",
         media_stream_constraints={"audio": True, "video": False},
-        audio_processor_factory=AudioProcessor,
     )
     
     if webrtc_ctx and webrtc_ctx.audio_processor:
