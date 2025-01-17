@@ -392,38 +392,38 @@ def main():
 
 
 
-# Pulsante per avviare la registrazione
-st.write("Premi 'Start' per iniziare a registrare audio.")
-webrtc_ctx = webrtc_streamer(
-    key="audio-only",
-    mode="sendonly",  # Solo invio di dati (nessun rendering di video/audio in tempo reale)
-    media_stream_constraints={"audio": True, "video": False},
-    audio_processor_factory=AudioProcessor,
-    async_processing=True,
-)
-
-if webrtc_ctx and webrtc_ctx.audio_processor:
-    # Mostra un pulsante per salvare l'audio
-    if st.button("Salva audio"):
-        audio_processor = webrtc_ctx.audio_processor
-        audio_frames = []
-        
-        # Estrai i dati audio dalla coda
-        while not audio_processor.audio_frames.empty():
-            audio_frames.append(audio_processor.audio_frames.get())
-
-        # Combina tutti i frame in un array NumPy
-        if audio_frames:
-            audio_data = np.concatenate(audio_frames, axis=0)
-            sample_rate = 48000  # Sample rate predefinito di WebRTC
-            write("output.wav", sample_rate, audio_data)
-            st.success("Audio salvato come 'output.wav'!")
-
-            # Riproduci l'audio salvato
-            with open("output.wav", "rb") as audio_file:
-                st.audio(audio_file, format="audio/wav")
-        else:
-            st.warning("Nessun audio registrato. Assicurati di premere 'Start' e parlare.")
+    # Pulsante per avviare la registrazione
+    st.write("Premi 'Start' per iniziare a registrare audio.")
+    webrtc_ctx = webrtc_streamer(
+        key="audio-only",
+        mode="sendonly",  # Solo invio di dati (nessun rendering di video/audio in tempo reale)
+        media_stream_constraints={"audio": True, "video": False},
+        audio_processor_factory=AudioProcessor,
+        async_processing=True,
+    )
+    
+    if webrtc_ctx and webrtc_ctx.audio_processor:
+        # Mostra un pulsante per salvare l'audio
+        if st.button("Salva audio"):
+            audio_processor = webrtc_ctx.audio_processor
+            audio_frames = []
+            
+            # Estrai i dati audio dalla coda
+            while not audio_processor.audio_frames.empty():
+                audio_frames.append(audio_processor.audio_frames.get())
+    
+            # Combina tutti i frame in un array NumPy
+            if audio_frames:
+                audio_data = np.concatenate(audio_frames, axis=0)
+                sample_rate = 48000  # Sample rate predefinito di WebRTC
+                write("output.wav", sample_rate, audio_data)
+                st.success("Audio salvato come 'output.wav'!")
+    
+                # Riproduci l'audio salvato
+                with open("output.wav", "rb") as audio_file:
+                    st.audio(audio_file, format="audio/wav")
+            else:
+                st.warning("Nessun audio registrato. Assicurati di premere 'Start' e parlare.")
 
     
     
