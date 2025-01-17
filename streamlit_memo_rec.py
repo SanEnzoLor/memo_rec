@@ -7,6 +7,8 @@ import requests
 import json
 import base64
 
+from io import StringIO
+
 def save_and_upload_to_github(data):
     # Input per i dati da salvare
     columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
@@ -30,7 +32,7 @@ def save_and_upload_to_github(data):
         content = response.json()
         # Decodifica e carica i dati esistenti
         existing_data = base64.b64decode(content["content"]).decode("utf-8")
-        existing_df = pd.read_csv(existing_data)
+        existing_df = pd.read_csv(StringIO(existing_data))
     else:
         sha = None  # Il file non esiste ancora
         existing_df = pd.DataFrame()  # DataFrame vuoto
