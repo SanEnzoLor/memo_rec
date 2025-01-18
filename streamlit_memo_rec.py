@@ -365,7 +365,7 @@ def main():
         # Salva temporaneamente il file WAV per la trascrizione
         temp_file = "temp_audio.wav"
         audio_segment.export(temp_file, format="wav")
-        st.session_state.transcription = transcribe_audio(temp_file).copy()
+        st.session_state.transcription = transcribe_audio(temp_file)
 
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
