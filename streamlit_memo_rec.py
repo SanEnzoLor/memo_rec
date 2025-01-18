@@ -416,11 +416,22 @@ def main():
     
     wav_audio_data = st_audiorec()
     if wav_audio_data is not None:
-        with open("recorded_audio.wav", "wb") as f:
-            f.write(wav_audio_data)
+        # Converti l'audio registrato in formato WAV
+        audio_file = BytesIO(wav_audio_data)
+        audio_segment = AudioSegment.from_file(audio_file)
+        
+        # Salva temporaneamente il file WAV per la trascrizione
+        temp_file = "temp_audio.wav"
+        audio_segment.export(temp_file, format="wav")
     
-        audio = AudioSegment.from_file("recorded_audio.wav")
-        transcribe_audio(audio)
+        # Trascrivi l'audio
+        st.success("Audio registrato con successo. Trascrizione in corso...")
+        transcription = transcribe_audio(temp_file)
+        
+        # Mostra il risultato
+        st.subheader("Trascrizione:")
+        st.write(transcription)
+     
 
 
 
