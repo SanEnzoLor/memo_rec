@@ -322,6 +322,8 @@ def main():
         st.session_state.start = False
     if "show" not in st.session_state:
         st.session_state.show = False
+    if "wav_audio_data" not in st.session_state:
+        st.session_state.wav_audio_data = None
     if "transcription" not in st.session_state:
         st.session_state.transcription = ""
     if "time_rec" not in st.session_state:
@@ -329,7 +331,7 @@ def main():
 
     ten_w = False
     # Reset file audio
-    wav_audio_data = None
+    # wav_audio_data = None
 
     def on_button_i_click():
         st.session_state.start = True
@@ -344,7 +346,7 @@ def main():
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
             # Reset testo precedente
-            # st.session_state.transcription = ""
+            #st.session_state.transcription = ""
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
@@ -355,12 +357,12 @@ def main():
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
         # Mostra il modulo di registrazione 
-        wav_audio_data = st_audiorec()
+        st.session_state.wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
-    if wav_audio_data is not None:
+    if st.session_state.wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
-        audio_file = BytesIO(wav_audio_data)
+        audio_file = BytesIO(st.session_state.wav_audio_data)
         audio_segment = AudioSegment.from_file(audio_file)
         st.session_state.time_rec = len(audio_segment)/1000 # da [ms] a [s]
         
@@ -404,7 +406,7 @@ def main():
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             # Reset file audio
-            #wav_audio_data = None
+            #st.session_state.wav_audio_data = None
             
 
     # Bottone per salvare i dati
