@@ -328,6 +328,8 @@ def main():
         st.session_state.transcription = ""
     if "time_rec" not in st.session_state:
         st.session_state.time_rec = 0
+    if "testo" not in st.session_state:
+        st.session_state.testo = ""
 
     ten_w = False
     # Reset file audio
@@ -376,7 +378,7 @@ def main():
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
     #testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", st.session_state.transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
         st.session_state.show = False
@@ -400,7 +402,7 @@ def main():
                 "PCL-5-hyperarousal": results_p[3],
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": st.session_state.selected_word,
-                "Text": testo,
+                "Text": st.session_state.testo,
                 "Time": duration,
                 "Time_recording": st.session_state.time_rec
             })
