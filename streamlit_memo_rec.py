@@ -6,20 +6,13 @@ import numpy as np
 import requests
 import json
 import base64
-from io import StringIO
-
+import speech_recognition as sr
 
 from st_audiorec import st_audiorec
 from pydub import AudioSegment
-import speech_recognition as sr
+from io import StringIO
 from io import BytesIO
 
-
-
-# Funzione per decodificare l'audio da base64
-def decode_audio(base64_audio):
-    audio_bytes = base64.b64decode(base64_audio)
-    return BytesIO(audio_bytes)
 
 # Funzione per trascrivere l'audio
 def transcribe_audio(audio_file):
@@ -33,13 +26,6 @@ def transcribe_audio(audio_file):
             return "Non è stato possibile comprendere l'audio."
         except sr.RequestError as e:
             return f"Errore nel servizio di riconoscimento vocale: {e}"
-
-
-
-
-
-
-
 
 
 def save_and_upload_to_github(data):
@@ -361,6 +347,7 @@ def main():
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
 
+    # Trascrizione automatica tramite modulo speech to text
     wav_audio_data = st_audiorec()
 
     transcription = ""
@@ -419,34 +406,5 @@ def main():
 
     
 
-
-
-
-
-    
-    
-    #wav_audio_data = st_audiorec()
-    #if wav_audio_data is not None:
-        # Converti l'audio registrato in formato WAV
-    #    audio_file = BytesIO(wav_audio_data)
-    #    audio_segment = AudioSegment.from_file(audio_file)
-        
-        # Salva temporaneamente il file WAV per la trascrizione
-    #    temp_file = "temp_audio.wav"
-    #    audio_segment.export(temp_file, format="wav")
-    
-    #    transcription = transcribe_audio(temp_file)
-        
-    #    st.write(transcription)
-     
-
-
-
-
-
-    
-    
-
-            
 if __name__ == "__main__":
     main()
