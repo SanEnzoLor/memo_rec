@@ -324,6 +324,8 @@ def main():
         st.session_state.show = False
     if "transcription" not in st.session_state:
         st.session_state.transcription = ""
+    if "time_rec" not in st.session_state:
+        st.session_state.time_rec = 0
 
     ten_w = False
     # Reset file audio
@@ -354,13 +356,11 @@ def main():
         wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
-    #transcription = ""
-    time_rec = 0
     if wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
         audio_file = BytesIO(wav_audio_data)
         audio_segment = AudioSegment.from_file(audio_file)
-        time_rec = len(audio_segment)/1000 # da [ms] a [s]
+        st.session_state.time_rec = len(audio_segment)/1000 # da [ms] a [s]
         
         # Salva temporaneamente il file WAV per la trascrizione
         temp_file = "temp_audio.wav"
@@ -395,7 +395,7 @@ def main():
                 "Cue-Word": st.session_state.selected_word,
                 "Text": testo,
                 "Time": duration,
-                "Time_recording": time_rec
+                "Time_recording": st.session_state.time_rec
             })
 
             # Rimuovi la parola utilizzata dalla lista
