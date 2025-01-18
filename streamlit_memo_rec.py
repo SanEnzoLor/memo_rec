@@ -324,6 +324,7 @@ def main():
         st.session_state.show = False
 
     ten_w = False
+    wav_audio_data = None
 
     def on_button_i_click():
         st.session_state.start = True
@@ -346,10 +347,10 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
+        # Mostra il modulo di registrazione 
+        wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
-    wav_audio_data = st_audiorec()
-
     transcription = ""
     if wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
@@ -395,6 +396,7 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+            wav_audio_data = None
             
 
     # Bottone per salvare i dati
