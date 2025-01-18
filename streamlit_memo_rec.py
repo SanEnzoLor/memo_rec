@@ -10,9 +10,6 @@ from io import StringIO
 
 
 from st_audiorec import st_audiorec
-
-import io
-import os
 from pydub import AudioSegment
 import speech_recognition as sr
 from io import BytesIO
@@ -364,9 +361,25 @@ def main():
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
 
+        wav_audio_data = st_audiorec()
+
+
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    if wav_audio_data is not None:
+        # Converti l'audio registrato in formato WAV
+        audio_file = BytesIO(wav_audio_data)
+        audio_segment = AudioSegment.from_file(audio_file)
+        
+        # Salva temporaneamente il file WAV per la trascrizione
+        temp_file = "temp_audio.wav"
+        audio_segment.export(temp_file, format="wav")
+    
+        transcription = transcribe_audio(temp_file)
+        
+        testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    else:
+        testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
         st.session_state.show = False
@@ -414,23 +427,19 @@ def main():
 
     
     
-    wav_audio_data = st_audiorec()
-    if wav_audio_data is not None:
+    #wav_audio_data = st_audiorec()
+    #if wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
-        audio_file = BytesIO(wav_audio_data)
-        audio_segment = AudioSegment.from_file(audio_file)
+    #    audio_file = BytesIO(wav_audio_data)
+    #    audio_segment = AudioSegment.from_file(audio_file)
         
         # Salva temporaneamente il file WAV per la trascrizione
-        temp_file = "temp_audio.wav"
-        audio_segment.export(temp_file, format="wav")
+    #    temp_file = "temp_audio.wav"
+    #    audio_segment.export(temp_file, format="wav")
     
-        # Trascrivi l'audio
-        st.success("Audio registrato con successo. Trascrizione in corso...")
-        transcription = transcribe_audio(temp_file)
+    #    transcription = transcribe_audio(temp_file)
         
-        # Mostra il risultato
-        st.subheader("Trascrizione:")
-        st.write(transcription)
+    #    st.write(transcription)
      
 
 
