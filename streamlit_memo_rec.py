@@ -23,7 +23,7 @@ def transcribe_audio(audio_file):
             text = recognizer.recognize_google(audio_data, language="it-IT")
             return text
         except sr.UnknownValueError:
-            return "Non è stato possibile comprendere l'audio."
+            return ""
         except sr.RequestError as e:
             return f"Errore nel servizio di riconoscimento vocale: {e}"
 
@@ -346,7 +346,9 @@ def main():
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
             # Reset testo precedente
-            #st.session_state.transcription = ""
+            st.session_state.transcription = ""
+            # Reset file audio
+            st.session_state.wav_audio_data = None
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
@@ -405,8 +407,6 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
-            # Reset file audio
-            st.session_state.wav_audio_data = None
             
 
     # Bottone per salvare i dati
