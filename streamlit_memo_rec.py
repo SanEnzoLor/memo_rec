@@ -326,6 +326,8 @@ def main():
         st.session_state.transcription = ""
 
     ten_w = False
+    # Reset file audio
+    wav_audio_data = None
 
     def on_button_i_click():
         st.session_state.start = True
