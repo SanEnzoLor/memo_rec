@@ -30,7 +30,7 @@ def transcribe_audio(audio_file):
 
 def save_and_upload_to_github(data):
     # Input per i dati da salvare
-    columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time"]
+    columns = ["Eta", "Gender", "Nazionalita", "Educazione", "Occupazione", "BDI2", "RRS", "PCL-5-reexperiencing", "PCL-5-avoidance", "PCL-5-altereted_cognition", "PCL-5-hyperarousal", "PCL-5-tot", "Cue-Word", "Text", "Time", "Time_recording"]
     new_df = pd.DataFrame(data, columns=columns)
     file_name = "dati.csv"
 
@@ -352,15 +352,16 @@ def main():
 
     # Trascrizione automatica tramite modulo speech to text
     transcription = ""
+    time_rec = 0
     if wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
         audio_file = BytesIO(wav_audio_data)
         audio_segment = AudioSegment.from_file(audio_file)
+        time_rec = len(audio_segment)/1000 # da [ms] a [s]
         
         # Salva temporaneamente il file WAV per la trascrizione
         temp_file = "temp_audio.wav"
         audio_segment.export(temp_file, format="wav")
-    
         transcription = transcribe_audio(temp_file)
 
     visible = lambda x: "collapsed" if x else "visible"
@@ -390,12 +391,14 @@ def main():
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": st.session_state.selected_word,
                 "Text": testo,
-                "Time": duration
+                "Time": duration,
+                "Time_recording": time_rec
             })
 
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+            # Reset file audio
             wav_audio_data = None
             
 
