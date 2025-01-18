@@ -347,7 +347,7 @@ def main():
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
         # Mostra il modulo di registrazione 
-    wav_audio_data = st_audiorec()
+    wav_audio_data = st_audiorec(disabled = True)
 
     # Trascrizione automatica tramite modulo speech to text
     transcription = ""
