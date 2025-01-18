@@ -416,7 +416,11 @@ def main():
     
     wav_audio_data = st_audiorec()
     if wav_audio_data is not None:
-        transcribe_audio(wav_audio_data)
+        with open("recorded_audio.wav", "wb") as f:
+            f.write(audio_bytes)
+    
+        audio = AudioSegment.from_file("recorded_audio.wav")
+        transcribe_audio(audio)
 
 
 
