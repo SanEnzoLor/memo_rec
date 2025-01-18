@@ -406,7 +406,7 @@ def main():
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             # Reset file audio
-            #st.session_state.wav_audio_data = None
+            st.session_state.wav_audio_data = None
             
 
     # Bottone per salvare i dati
