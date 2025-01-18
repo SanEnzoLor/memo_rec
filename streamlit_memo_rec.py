@@ -415,7 +415,7 @@ def main():
     
     
     wav_audio_data = st_audiorec()
-
+    st.write(wav_audio_data)
 
 
 
