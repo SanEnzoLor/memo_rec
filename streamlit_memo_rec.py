@@ -328,12 +328,10 @@ def main():
         st.session_state.transcription = ""
     if "time_rec" not in st.session_state:
         st.session_state.time_rec = 0
-    #if "testo" not in st.session_state:
-    #    st.session_state.testo = ""
+    if "testo" not in st.session_state:
+        st.session_state.testo = ""
 
     ten_w = False
-    # Reset file audio
-    # wav_audio_data = None
 
     def on_button_i_click():
         st.session_state.start = True
@@ -347,11 +345,6 @@ def main():
             st.session_state.start_time = time.time()
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
-            # Reset testo precedente
-            #st.session_state.transcription = ""
-            # Reset file audio
-            #st.session_state.wav_audio_data = None
-            #st.session_state.time_rec = 0
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
@@ -378,14 +371,12 @@ def main():
 
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
-    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:",
-                         value = st.session_state.transcription,
-                         height = 300,
-                         key = len(st.session_state.remaining_words),
-                         disabled = able(st.session_state.show, ten_w),
-                         label_visibility = visible(st.session_state.show),
-                         on_change=lambda: st.session_state.update({"transcription": st.session_state.transcription}))
-    #st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:",
+                                          value = st.session_state.transcription,
+                                          height = 300,
+                                          key = len(st.session_state.remaining_words),
+                                          disabled = able(st.session_state.show, ten_w),
+                                          label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
         st.session_state.show = False
@@ -409,7 +400,7 @@ def main():
                 "PCL-5-hyperarousal": results_p[3],
                 "PCL-5-tot": results_p[4],
                 "Cue-Word": st.session_state.selected_word,
-                "Text": st.session_state.transcription, #testo
+                "Text": st.session_state.testo,
                 "Time": duration,
                 "Time_recording": st.session_state.time_rec
             })
@@ -419,6 +410,7 @@ def main():
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
             # Reset testo precedente
             st.session_state.transcription = ""
+            st.session_state.testo = ""
             # Reset file audio
             st.session_state.wav_audio_data = None
             st.session_state.time_rec = 0
