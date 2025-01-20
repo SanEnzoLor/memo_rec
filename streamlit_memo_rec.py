@@ -384,8 +384,8 @@ def main():
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
     # Mostra uno dei due tipi di registrazione memorie
-        with col3:
-            st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", st.session_state.transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    with col3:
+        st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", st.session_state.transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     #st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
