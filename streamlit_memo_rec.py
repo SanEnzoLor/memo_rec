@@ -328,8 +328,8 @@ def main():
         st.session_state.transcription = ""
     if "time_rec" not in st.session_state:
         st.session_state.time_rec = 0
-    if "testo" not in st.session_state:
-        st.session_state.testo = ""
+    #if "testo" not in st.session_state:
+    #    st.session_state.testo = ""
 
     ten_w = False
     # Reset file audio
@@ -378,13 +378,13 @@ def main():
 
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
-    st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:",
-                                          value = st.session_state.transcription,
-                                          height = 300, 
-                                          key = len(st.session_state.remaining_words), 
-                                          disabled = able(st.session_state.show, ten_w),
-                                          label_visibility = visible(st.session_state.show), 
-                                          on_change=lambda: st.session_state.update({"transcription": st.session_state.transcription}))
+    testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:",
+                         value = st.session_state.transcription,
+                         height = 300,
+                         key = len(st.session_state.remaining_words),
+                         disabled = able(st.session_state.show, ten_w),
+                         label_visibility = visible(st.session_state.show),
+                         on_change=lambda: st.session_state.update({"transcription": st.session_state.transcription}))
     #st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
