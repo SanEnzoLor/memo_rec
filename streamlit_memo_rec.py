@@ -363,7 +363,7 @@ def main():
         st.session_state.wav_audio_data = st_audiorec()
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
-        st.write(f"**{st.session_state.selected_word}**")
+        st.header(f"**{st.session_state.selected_word}**")
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
