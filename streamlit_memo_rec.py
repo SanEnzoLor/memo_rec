@@ -351,17 +351,23 @@ def main():
             st.session_state.transcription = ""
             # Reset file audio
             st.session_state.wav_audio_data = None
+            st.session_state.time_rec = 0
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
             ten_w = True
+            
+    # Crea due colonne per le registrazioni delle memorie
+    col3, col4 = st.columns(1, 1])
     
     if st.session_state.show == True and ten_w == False:
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-        # Mostra il modulo di registrazione 
-        st.session_state.wav_audio_data = st_audiorec()
+        # Mostra uno dei due tipi di registrazione memorie
+        with col4:
+            # Mostra il modulo di registrazione 
+            st.session_state.wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
@@ -377,7 +383,9 @@ def main():
 
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
-    st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", st.session_state.transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
+    # Mostra uno dei due tipi di registrazione memorie
+        with col3:
+            st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", st.session_state.transcription, height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     #st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:", height = 300, key = len(st.session_state.remaining_words), disabled = able(st.session_state.show, ten_w), label_visibility = visible(st.session_state.show))
     
     def on_button_s_click():
