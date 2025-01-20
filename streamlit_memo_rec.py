@@ -348,21 +348,21 @@ def main():
             # Seleziona una parola casuale dalla lista di parole rimanenti
             st.session_state.selected_word = random.choice(st.session_state.remaining_words)
             # Reset testo precedente
-            st.session_state.transcription = ""
+            #st.session_state.transcription = ""
             # Reset file audio
-            st.session_state.wav_audio_data = None
-            st.session_state.time_rec = 0
+            #st.session_state.wav_audio_data = None
+            #st.session_state.time_rec = 0
         else:
             # Se non ci sono parole da suggerire, disabilita il pulsante di registrazione
             st.warning("Hai già usato tutte le 10 parole, non è più possibile fare altre registrazioni. Selezionare **Salva Dati**")
             ten_w = True
     
     if st.session_state.show == True and ten_w == False:
+        # Mostra il modulo di registrazione 
+        st.session_state.wav_audio_data = st_audiorec()
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-        # Mostra il modulo di registrazione 
-        st.session_state.wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
@@ -411,6 +411,11 @@ def main():
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
+            # Reset testo precedente
+            st.session_state.transcription = ""
+            # Reset file audio
+            st.session_state.wav_audio_data = None
+            st.session_state.time_rec = 0
             
 
     # Bottone per salvare i dati
