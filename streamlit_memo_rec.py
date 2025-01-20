@@ -358,7 +358,7 @@ def main():
             ten_w = True
             
     # Crea due colonne per le registrazioni delle memorie
-    col3, col4 = st.columns(1, 1])
+    col3, col4 = st.columns([1, 1])
     
     if st.session_state.show == True and ten_w == False:
         # Mostra la parola spunto
