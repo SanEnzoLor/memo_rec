@@ -359,11 +359,11 @@ def main():
             ten_w = True
     
     if st.session_state.show == True and ten_w == False:
-        # Mostra il modulo di registrazione 
-        st.session_state.wav_audio_data = st_audiorec()
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.header(f"**{st.session_state.selected_word}**")
+        # Mostra il modulo di registrazione 
+        st.session_state.wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
