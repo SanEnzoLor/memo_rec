@@ -89,7 +89,7 @@ def save_and_upload_to_github(data):
 
 # Funzione per somministrare il BDI2
 def BDI2():
-    st.title("**Beck Depression Inventory - II**")
+    st.header("**Beck Depression Inventory - II**")
     st.write("Il presente questionario consiste di 21 gruppi di affermazioni.  Per ogni gruppo scelga quella che meglio descrive come si è sentito nelle ultime due settimane (incluso oggi). Se più di una affermazione dello stesso gruppo descrive ugualmente bene come si sente, faccia una crocetta sul numero più elevato per quel gruppo. Non si soffermi troppo su ogni affermazione: la prima risposta è spesso la più accurata.")
     st.markdown("https://www.endowiki.it/images/stories/pdf/Beck-II-Italiano.pdf")
     st.markdown("https://psicologiaecomunicazione.it/wp-content/uploads/2018/07/Inventario-per-la-Depressione-Di-Beck-Beck-Depression-Inventory.pdf")
@@ -162,7 +162,7 @@ def BDI2():
 
 # Funzione per somministrare il RRS
 def RRS():
-    st.title("**Ruminative Response Scale**")
+    st.header("**Ruminative Response Scale**")
     st.write("Gli individui pensano e agiscono in molti modi diversi quando si sentono depressi. Per favore, legga ciascuno dei seguenti item e indichi se, quando si sente giù, triste o depresso, lo pensa o lo fa mai, a volte, spesso o sempre. Indichi cortesemente cosa fa di solito, non cosa pensa di dover fare, selezionando il numero per indicare quanto ogni problema la affligge (da: Quasi mai = 1; a: Quasi sempre = 4)..")
     st.markdown("https://academy.formazionecontinuainpsicologia.it/wp-content/uploads/2023/07/ruminative.pdf")
     st.markdown("https://doi.org/10.1016/j.jbtep.2006.03.002")
@@ -195,7 +195,7 @@ def RRS():
 
 # Funzione per il PTSD checklist 5
 def PCL5():
-    st.title("**Posttraumatic Stress Disorder Checklist - 5**")
+    st.header("**Posttraumatic Stress Disorder Checklist - 5**")
     
     st.write("È mai stata esposta ai seguenti eventi: pericolo di morte, minaccia effettiva di lesioni gravi o di violenza, in una o più delle seguenti modalità:")
     st.write("1. Sperimentando in prima persona l'evento o gli eventi.")
@@ -257,11 +257,12 @@ def main():
     with col2:
         st.image("image/logo_nextage.png", use_container_width=True)
 
-    st.header("**Indagine volta alla costruzione di un database di memorie in italiano**")
-    st.write("Questo studio fa parte del mio progetto di dottorato intitolato: \n Modeling dialogue between human and digital agents for the personalized stimulation of mnemonic abilities and the support for the evaluation of the progress and assistance of neurocognitive problems")
+    st.title("**Indagine volta alla costruzione di un database di memorie in italiano**")
+    st.write("Questo studio fa parte del progetto di dottorato intitolato:")
+    st.write("**Modeling dialogue between human and digital agents for the personalized stimulation of mnemonic abilities and the support for the evaluation of the progress and assistance of neurocognitive problems**")
     st.write("Lo scopo di questo studio è quello di raccogliere memorie autobiografiche correlate a indici di salute mentale. Il fine è quello di aver un database uniforme di racconti a cui dare dei punteggi grazie a schemi di valutazione della narrazione autobiografica.")
     
-    st.title("**Indici Demografici**")
+    st.header("**Indici Demografici**")
 
     if "change" not in st.session_state:
         st.session_state.change = False
@@ -281,7 +282,7 @@ def main():
     st.write(f"PCL5: Re-experiencing = {results_p[0]}, Avoidance = {results_p[1]}, Negative alterations in cognition and mood = {results_p[2]}, Hyper-arousal = {results_p[3]}, Totale = {results_p[4]}")
 
     #record_seconds = 6
-    st.title("**Cue-Word Autobiographic Memory Retrievial**")
+    st.header("**Cue-Word Autobiographic Memory Retrievial**")
     # Lista di parole spunto
     cue_words_f = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
     cue_words = ['ECCITATO', 'ANNOIATO', 'FELICE', 'FALLITO', 'FORTUNATO', 'DISPERATO', 'RILASSATO', 'SOLITARIO', 'SERENO', 'TRISTE']
@@ -360,7 +361,9 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-        st.write("Vi è la possibilità: \n - Sia di registrare un audio che verrà poi trascritto nel campo di testuale per eventuali modifiche \n - Sia di scrivere direttamente nel campo testuale")
+        st.write("Vi è la possibilità:")
+        st.write("- Sia di **registrare un audio**, che verrà **poi trascritto** nel campo di testuale per eventuali modifiche.") 
+        st.write("- Sia di **scrivere direttamente** nel campo testuale.")
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
