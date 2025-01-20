@@ -364,6 +364,7 @@ def main():
         st.header(f"**{st.session_state.selected_word}**")
         # Mostra il modulo di registrazione 
         st.session_state.wav_audio_data = st_audiorec()
+        st.write(st.session_state.session_data)
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
@@ -412,7 +413,7 @@ def main():
                 "Time": duration,
                 "Time_recording": st.session_state.time_rec
             })
-            st.write(st.session_state.session_data)
+            
             # Rimuovi la parola utilizzata dalla lista
             st.session_state.remaining_words.remove(st.session_state.selected_word)
             st.success(f"Registrazione completata. Dati salvati temporaneamente.")
