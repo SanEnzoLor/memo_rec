@@ -356,19 +356,16 @@ def main():
             ten_w = True
     
     if st.session_state.show == True and ten_w == False:
+        st.write("Vi è la possibilità sia di **registrare un audio**, che verrà poi **trascritto automaticamente** nel campo di testuale per eventuali modifiche, che di **scrivere direttamente** nel campo testuale.") 
         # Mostra il modulo di registrazione 
         st.session_state.wav_audio_data = st_audiorec()
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
-        st.write("Vi è la possibilità:")
-        st.write("- Sia di **registrare un audio**, che verrà **poi trascritto** nel campo di testuale per eventuali modifiche.") 
-        st.write("- Sia di **scrivere direttamente** nel campo testuale.")
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
-        st.warning("Attendere la trascrizione dell'audio.")
         audio_file = BytesIO(st.session_state.wav_audio_data)
         audio_segment = AudioSegment.from_file(audio_file)
         st.session_state.time_rec = len(audio_segment)/1000 # da [ms] a [s]
