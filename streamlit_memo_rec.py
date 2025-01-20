@@ -256,6 +256,10 @@ def main():
         st.image("image/logo_unige.png", use_container_width=True)
     with col2:
         st.image("image/logo_nextage.png", use_container_width=True)
+
+    st.header("**Indagine volta alla costruzione di un database di memorie in italiano**")
+    st.write("Questo studio fa parte del mio progetto di dottorato intitolato: \n Modeling dialogue between human and digital agents for the personalized stimulation of mnemonic abilities and the support for the evaluation of the progress and assistance of neurocognitive problems")
+    st.write("Lo scopo di questo studio è quello di raccogliere memorie autobiografiche correlate a indici di salute mentale. Il fine è quello di aver un database uniforme di racconti a cui dare dei punteggi grazie a schemi di valutazione della narrazione autobiografica.")
     
     st.title("**Indici Demografici**")
 
@@ -356,10 +360,12 @@ def main():
         # Mostra la parola spunto
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.write(f"**{st.session_state.selected_word}**")
+        st.write("Vi è la possibilità: \n - Sia di registrare un audio che verrà poi trascritto nel campo di testuale per eventuali modifiche \n - Sia di scrivere direttamente nel campo testuale")
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
         # Converti l'audio registrato in formato WAV
+        st.warning("Attendere la trascrizione dell'audio.")
         audio_file = BytesIO(st.session_state.wav_audio_data)
         audio_segment = AudioSegment.from_file(audio_file)
         st.session_state.time_rec = len(audio_segment)/1000 # da [ms] a [s]
