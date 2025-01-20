@@ -286,8 +286,9 @@ def main():
     # Lista di parole spunto
     cue_words_f = ['ECCITATA', 'ANNOIATA', 'FELICE', 'FALLITA', 'FORTUNATA', 'DISPERATA', 'RILASSATA', 'SOLITARIA', 'SERENA', 'TRISTE']
     cue_words = ['ECCITATO', 'ANNOIATO', 'FELICE', 'FALLITO', 'FORTUNATO', 'DISPERATO', 'RILASSATO', 'SOLITARIO', 'SERENO', 'TRISTE']
-    st.write("Il task consiste nel **ricordare e scrivere** un **evento personale** richiamato dalla **parola** che verrà mostrata una volta selezionato **Inizia**. Nel testo si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento raccontato **NON** deve essere accaduto durante la **scorsa settimana**.")
-    st.write("Terminata la scrittura sarà possibile salvare la memoria appena descritta (selezionando **Salva memoria**), il task potrà essere rieseguito per un massimo di 10 volte con parole differenti (selezionando nuovamente **Inizia** e poi **Salva memoria**). Se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
+    st.write("Il task consiste nel **raccontare** un **evento personale** richiamato dalla **parola** che verrà mostrata una volta selezionato **Inizia**. Si descrivano quanti più **dettagli** possibili associati alla memoria autobiografica recuperarta. L'evento descritto **NON** deve essere accaduto durante la **scorsa settimana**. **EVITARE** di menzionare **indirizzi specifici** e/o **nome e cognome di persone**, è preferibile utilizzare indirizzzi più generici (e.g. città/quartiere), nomi comuni di persona (e.g. amico/compagno), soprannomi o sono nomi propri.")
+    st.write("Terminata la narrazione sarà possibile salvare la memoria appena descritta (selezionando **Salva memoria**), il task potrà essere rieseguito per un massimo di 10 volte con parole differenti (selezionando nuovamente **Inizia** e poi **Salva memoria**). Se si desidera ci si può fermare prima (selezionando **Salva Dati**).")
+    st.write("Vi sarà la possibilità sia di **registrare un audio**, che verrà poi **trascritto automaticamente** nel campo di testuale per eventuali modifiche, che di **scrivere direttamente** nel campo testuale.") 
     st.markdown("https://doi.org/10.1080/09658211.2018.1507042")
     st.markdown("https://pubmed.ncbi.nlm.nih.gov/15081887/")
     #st.write(f"Durata registrazione {record_seconds} secondi")
@@ -356,7 +357,6 @@ def main():
             ten_w = True
     
     if st.session_state.show == True and ten_w == False:
-        st.write("Vi è la possibilità sia di **registrare un audio**, che verrà poi **trascritto automaticamente** nel campo di testuale per eventuali modifiche, che di **scrivere direttamente** nel campo testuale.") 
         # Mostra il modulo di registrazione 
         st.session_state.wav_audio_data = st_audiorec()
         # Mostra la parola spunto
