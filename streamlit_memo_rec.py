@@ -363,7 +363,7 @@ def main():
         st.write("Racconta una memoria che recuperi prendendo spunto dalla parola:")
         st.header(f"**{st.session_state.selected_word}**")
         # Mostra il modulo di registrazione 
-        st.session_state.wav_audio_data = st_audiorec()
+        #st.session_state.wav_audio_data = st_audiorec()
 
     # Trascrizione automatica tramite modulo speech to text
     if st.session_state.wav_audio_data is not None:
@@ -380,7 +380,7 @@ def main():
     visible = lambda x: "collapsed" if x else "visible"
     able = lambda x, y: False if x and not y else True
     st.session_state.testo = st.text_area("Scrivi qui il tuo testo una volta cliccato su **Inizia** e aver visto la **parola** da cui recuperare la memoria:",
-                                          value = st.session_state.transcription,
+                                          #value = st.session_state.transcription,
                                           height = 300,
                                           key = len(st.session_state.remaining_words),
                                           disabled = able(st.session_state.show, ten_w),
